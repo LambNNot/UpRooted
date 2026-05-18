@@ -10,8 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected float walkSpeed = 5f;
 
-    [SerializeField]
-    protected Vector3 moveDirection = Vector3.left;
+    private Vector3 moveDirection = Vector3.left;
 
     protected abstract void Update();
 
@@ -28,5 +27,10 @@ public abstract class EnemyBase : MonoBehaviour
     protected void Walk()
     {
         transform.position += moveDirection * walkSpeed * Time.deltaTime;
+    }
+
+    protected Vector3 getMoveDirection()
+    {
+        return moveDirection;
     }
 }

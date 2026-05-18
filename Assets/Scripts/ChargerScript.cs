@@ -89,13 +89,13 @@ public class ChargerScript : EnemyBase
     { 
         sr.color = prepareColor;
         isWaiting = true;
-        StartCoroutine(WaitCharge());
+        Invoke(nameof(beginCharging), chargeDelay);
         
     }
 
     private void ChargeForward()
     {
-        transform.position += moveDirection * chargeSpeed * Time.deltaTime;
+        transform.position += getMoveDirection() * chargeSpeed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -113,7 +113,7 @@ public class ChargerScript : EnemyBase
     {
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
-            moveDirection,
+            getMoveDirection(),
             sightDistance,
             targetLayers
         );

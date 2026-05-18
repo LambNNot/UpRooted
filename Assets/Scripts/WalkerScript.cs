@@ -12,7 +12,7 @@ public class WalkerScript : EnemyBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        moveDirection = -moveDirection;
+        TurnAround();
     }
 
 }
