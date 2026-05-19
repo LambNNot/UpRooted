@@ -15,10 +15,7 @@ public class Gate : MonoBehaviour
     {
         if (playerInside && unlocked)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SceneManager.LoadScene(sceneToLoad);
-            }
+            SceneManager.LoadScene(sceneToLoad);
         }
     }
 

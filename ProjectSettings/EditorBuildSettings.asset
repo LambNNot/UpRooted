@@ -8,5 +8,23 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelector.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/LevelFifth.unity
+    guid: 50f4ba63b23b5c940aa9cd360f87f349
+  - enabled: 1
+    path: Assets/Scenes/LevelFirst.unity
+    guid: f99ed86efb41e034f9716906ffc51f87
+  - enabled: 1
+    path: Assets/Scenes/LevelFourth.unity
+    guid: 1b078244222dce94da01c3288a5bb6cb
+  - enabled: 1
+    path: Assets/Scenes/LevelSecond.unity
+    guid: 7edc5ad824bd9ab4d9a656b8412740ba
+  - enabled: 1
+    path: Assets/Scenes/LevelThird.unity
+    guid: 28b2ce564a60bb64793207662b0e4116
+  - enabled: 1
+    path: Assets/Scenes/Developer scenes/LeilaDevScene.unity
+    guid: e5e3cafa0251e474e988c17aa686de35
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
