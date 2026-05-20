@@ -11,11 +11,25 @@ public class Gate : MonoBehaviour
 
     private bool playerInside = false;
 
+    void Start()
+    {
+        if(unlocked == true)
+        {
+            GetComponent<SpriteRenderer>().color = Color.softYellow;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = Color.grey;
+        }
+    }
+
     void Update()
     {
         if (playerInside && unlocked)
         {
-            SceneManager.LoadScene(sceneToLoad);
+            if (Input.GetKeyDown(KeyCode.E)){
+                LoadNextLevel();
+            }
         }
     }
 
@@ -33,5 +47,9 @@ public class Gate : MonoBehaviour
         {
             playerInside = false;
         }
+    }
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
