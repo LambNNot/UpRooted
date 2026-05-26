@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
 
+    public int maxHealth = 5; //will be for health of the player
+    public int currentHealth;
+
+    public HealthBar healthBar;
+
 
 
     [SerializeField] private Rigidbody2D rb;
@@ -37,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
             Load();
         }
         UpdateCharacter(selectedOption);
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
@@ -68,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return)) //for testing right now
+        {
+            TakeDamage(1);
         }
 
         Flip();
@@ -109,5 +122,12 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCoolDown);
         canDash = true;
+    }
+
+    void TakeDamage(int damage) //this will decreas the health on the health bar 
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 }
