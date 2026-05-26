@@ -454,6 +454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac94e187dc1c408d8ee68db217a39d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  characterD: {fileID: 11400000, guid: 6700c678917f7744088aa59bf37eca6c, type: 2}
+  artworkSprite: {fileID: 227258348}
   rb: {fileID: 227258347}
   groundCheck: {fileID: 879421866}
   groundLayer:
