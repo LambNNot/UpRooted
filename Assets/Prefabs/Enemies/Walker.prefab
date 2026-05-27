@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.4, y: -2.98, z: 0}
-  m_LocalScale: {x: 1, y: 0.5554, z: 1}
+  m_LocalScale: {x: 5.0608277, y: 4.875866, z: 5.0608277}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -626925964496244765, guid: c4d22e9aea6f09d44a7a5159d813139c, type: 3}
   m_Color: {r: 1, g: 0.4110635, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,9 +142,9 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0.002145392, y: 0.09326498}
+  m_Size: {x: 0.30947083, y: 0.13814437}
+  m_Direction: 1
 --- !u!50 &3815301229949872505
 Rigidbody2D:
   serializedVersion: 5
