@@ -78,11 +78,6 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) //for testing right now
-        {
-            TakeDamage(1);
-        }
-
         Flip();
     }
 
@@ -128,6 +123,18 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth -= damage;
 
-        healthBar.SetHealth(currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); //making sure that the health doesn't drop to a negative num
+        healthBar.SetHealth(currentHealth); //updates the slider bar
+
+        if(currentHealth <= 0){
+            //they will go back to the level select or a pop up will appear
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Enemy")){ //will check if it got hit by an enemy
+            TakeDamage(1);
+        }
+
     }
 }
