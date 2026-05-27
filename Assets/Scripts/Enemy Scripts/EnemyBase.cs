@@ -10,7 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected float walkSpeed = 5f;
 
-    private Vector3 moveDirection = Vector3.left;
+    protected Vector3 moveDirection = Vector3.left;
 
     protected abstract void Update();
 
