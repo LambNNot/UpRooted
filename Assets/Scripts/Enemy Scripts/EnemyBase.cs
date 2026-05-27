@@ -10,7 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected float walkSpeed = 5f;
 
-    private float knockbackForce = 3f;
+    private float recoilForce = 1f;
 
     protected Vector3 moveDirection = Vector3.left;
 
@@ -29,18 +29,25 @@ public abstract class EnemyBase : MonoBehaviour
     {
         health -= Math.Floor(damage);
 
-        // Direction away from attacker
-        Vector2 knockbackDir =
-            (transform.position - attacker.position).normalized;
+        float horizontalDir =
+            Mathf.Sign(transform.position.x - attacker.position.x);
 
-        // Reset current velocity so knockback feels consistent
         rb.linearVelocity = Vector2.zero;
 
-        // Apply physics knockback
         rb.AddForce(
-            knockbackDir * knockbackForce,
+            new Vector2(horizontalDir * recoilForce, recoilForce),
             ForceMode2D.Impulse
         );
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     protected void TurnAround()
@@ -64,5 +71,13 @@ public abstract class EnemyBase : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = -scale.x;
         transform.localScale = scale;
+    }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            TakeDamage(0, collision.transform);
+        }
     }
 }

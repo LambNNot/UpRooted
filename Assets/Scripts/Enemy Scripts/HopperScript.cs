@@ -57,8 +57,9 @@ public class HopperScript : EnemyBase
         canJump = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         // Turn around when hitting walls
         rb.linearVelocityX = 0; // Stop all horizontal force
         TurnAround();

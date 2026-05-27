@@ -10,8 +10,9 @@ public class WalkerScript : EnemyBase
         Walk(); 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         TurnAround();
     }
 

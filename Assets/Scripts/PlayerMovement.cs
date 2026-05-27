@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    [SerializeField]
+    private double health = 3;
+
     private float horizontalInput;
     private float speed = 8f;
     private float jumpingPower = 16f;
@@ -16,11 +20,21 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.5f; 
 
+    private float recoilForce = 8f;
+
     private float fastFallMultiplier = 10.0f; // fast fall mechanics 
     private float maxFallSpeed = -40f;
     public CharacterData characterD; //this will be for the character and the next 2 variables
-    public SpriteRenderer artworkSprite;
+    private SpriteRenderer sr;
     private int selectedOption = 0;
+
+    private bool isRecoiling = false;
+
+    [SerializeField]
+    private float recoilDuration = 0.2f;
+    [SerializeField]
+    private Color recoilColor;
+    private Color originalColor;
 
 
     [SerializeField] private Rigidbody2D rb;
@@ -29,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+        originalColor = sr.color;
         if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
         {
             selectedOption = 0;
@@ -43,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
     {
         Character character = characterD.GetCharacter(selectedOption);
-        artworkSprite.sprite = character.characterSprite;
+        sr.sprite = character.characterSprite;
     }
 
     private void Load()
@@ -74,23 +90,35 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    private void FixedUpdate(){
-    if (isDashing)
-        return;
-
-    rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
-
-    // Fast fall when pressing down while in the air
-    if (!IsGrounded() && Input.GetAxisRaw("Vertical") < 0f && rb.linearVelocity.y < 0f)
+    private void FixedUpdate()
     {
-        float newYVelocity = rb.linearVelocity.y + Physics2D.gravity.y * (fastFallMultiplier - 1f) * Time.fixedDeltaTime;
+        if (isDashing || isRecoiling)
+            return;
 
-        // Prevent falling infinitely fast
-        newYVelocity = Mathf.Max(newYVelocity, maxFallSpeed);
+        rb.linearVelocity = new Vector2(
+            horizontalInput * speed,
+            rb.linearVelocity.y
+        );
 
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, newYVelocity);
+        // Fast fall
+        if (!IsGrounded() &&
+            Input.GetAxisRaw("Vertical") < 0f &&
+            rb.linearVelocity.y < 0f)
+        {
+            float newYVelocity =
+                rb.linearVelocity.y +
+                Physics2D.gravity.y *
+                (fastFallMultiplier - 1f) *
+                Time.fixedDeltaTime;
+
+            newYVelocity = Mathf.Max(newYVelocity, maxFallSpeed);
+
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                newYVelocity
+            );
+        }
     }
-}
 
     private bool IsGrounded()
     {
@@ -121,4 +149,63 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingCoolDown);
         canDash = true;
     }
+
+    private void TakeDamage(Transform attacker)
+    {
+        health -= 1;
+
+        float horizontalDir =
+            Mathf.Sign(transform.position.x - attacker.position.x);
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(
+            new Vector2(horizontalDir * recoilForce, recoilForce),
+            ForceMode2D.Impulse
+        );
+
+        StartCoroutine(RecoilCoroutine());
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private IEnumerator RecoilCoroutine()
+{
+    isRecoiling = true;
+
+    float elapsed = 0f;
+    float flashInterval = 0.08f;
+
+    while (elapsed < recoilDuration)
+    {
+        sr.color = recoilColor;
+        yield return new WaitForSeconds(flashInterval);
+
+        sr.color = originalColor;
+        yield return new WaitForSeconds(flashInterval);
+
+        elapsed += flashInterval * 2f;
+    }
+
+    sr.color = originalColor;
+    isRecoiling = false;
+}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.CompareTag("Enemy") && !isRecoiling)
+        {
+            Debug.Log("Player hit enemy: " + collision.gameObject.name);
+            TakeDamage(collision.transform);
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player died");
+    }
+    
 }
