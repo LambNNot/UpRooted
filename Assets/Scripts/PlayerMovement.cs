@@ -27,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+    public int maxHealth = 5; //these three will be for the health of the player
+    public int currentHealth; 
+    public HealthBar healthBar; 
+
     void Start()
     {
         if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
@@ -38,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
             Load();
         }
         UpdateCharacter(selectedOption);
+
+        currentHealth = maxHealth;  //the health of the player will be 5 
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
@@ -120,5 +127,25 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCoolDown);
         canDash = true;
+    }
+
+    void TakeDamage(int damage) //this will decrease the health of player
+    {
+        currentHealth -= damage; 
+
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); //making sure that the health doesn't drop to a negative num
+        healthBar.SetHealth(currentHealth); //updates the slider bar
+
+        if(currentHealth <= 0){
+            Debug.Log("Player has died.");
+            //they will go back to the level select or a pop up will appear
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Enemy")){ //will check if it got hit by an enemy
+            TakeDamage(1);
+        }
+
     }
 }
