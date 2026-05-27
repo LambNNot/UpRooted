@@ -14,13 +14,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     private float dashingPower = 24f;
     private float dashingTime = 0.2f;
-    private float dashingCoolDown = 1f; 
+    private float dashingCoolDown = 0.5f; 
 
-    public SpriteRenderer artworkSprite;
-    private int selectedOption = 0;
-    public CharacterData characterD; //this will be for the character and the next 2 variables
     private float fastFallMultiplier = 10.0f; // fast fall mechanics 
     private float maxFallSpeed = -40f;
+    public CharacterData characterD; //this will be for the character and the next 2 variables
+    public SpriteRenderer artworkSprite;
+    private int selectedOption = 0;
 
 
     [SerializeField] private Rigidbody2D rb;
