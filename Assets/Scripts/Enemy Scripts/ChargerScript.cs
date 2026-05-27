@@ -19,8 +19,6 @@ public class ChargerScript : EnemyBase
     [SerializeField]
     private LayerMask targetLayers;
 
-    private SpriteRenderer sr;
-
     [SerializeField]
     private Color walkColor;
 
@@ -41,15 +39,10 @@ public class ChargerScript : EnemyBase
     private float chargeTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        base.Start();
         sr.color = walkColor;
-
-        Debug.Log("=== Charger Started ===");
-        Debug.Log("Target Layer Mask Value: " + targetLayers.value);
-        Debug.Log("Sight Distance: " + sightDistance);
-        Debug.Log("Charge Speed: " + chargeSpeed);
     }
 
     // Update is called once per frame
@@ -77,8 +70,6 @@ public class ChargerScript : EnemyBase
         }
 
         Walk();
-
-        UpdateSpriteDirection();
 
         LookAhead();
     }
@@ -174,21 +165,5 @@ public class ChargerScript : EnemyBase
         }
     }
 
-    private void UpdateSpriteDirection()
-    {
-        Vector3 scale = transform.localScale;
-
-        // Looking right
-        if (getMoveDirection().x > 0)
-        {
-            scale.x = -Mathf.Abs(scale.x);
-        }
-        // Looking left
-        else if (getMoveDirection().x < 0)
-        {
-            scale.x = Mathf.Abs(scale.x);
-        }
-
-        transform.localScale = scale;
-    }
+    
 }

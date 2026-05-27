@@ -15,16 +15,7 @@ public class HopperScript : EnemyBase
     [SerializeField]
     private Color jumpColor;
 
-    private Rigidbody2D rb;
-    private SpriteRenderer sr;
-
     private bool canJump = true;
-
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     protected override void Update()
     {

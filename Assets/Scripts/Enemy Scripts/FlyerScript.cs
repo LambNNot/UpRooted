@@ -10,23 +10,22 @@ public class FlyerScript : EnemyBase
 
     [SerializeField] private float lingerTime = 0.25f;
 
-    private SpriteRenderer sr;
-
     private float topY;
     private float bottomY;
 
     private bool isLingering = false;
     private float lingerTimer = 0f;
 
-    private void Start()
+    protected override void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        base.Start();
 
         topY = topPoint.position.y;
         bottomY = bottomPoint.position.y;
 
         moveDirection = Vector3.up;
         sr.color = upColor;
+        rb.gravityScale = 0;
     }
 
     protected override void Update()
