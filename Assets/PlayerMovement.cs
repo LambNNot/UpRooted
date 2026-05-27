@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
+    public CharacterData characterD; //this will be for the character and the next 2 variables
     private float fastFallMultiplier = 10.0f; // fast fall mechanics 
     private float maxFallSpeed = -40f;
 
@@ -36,14 +37,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Load();
         }
-        // UpdateCharacter(selectedOption);
+        UpdateCharacter(selectedOption);
     }
 
-    // private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
-    // {
-    //     Character character = characterD.GetCharacter(selectedOption);
-    //     artworkSprite.sprite = character.characterSprite;
-    // }
+    private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
+    {
+        Character character = characterD.GetCharacter(selectedOption);
+        artworkSprite.sprite = character.characterSprite;
+    }
 
     private void Load()
     {
