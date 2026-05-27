@@ -14,12 +14,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     private float dashingPower = 24f;
     private float dashingTime = 0.2f;
-    private float dashingCoolDown = 1f; 
+    private float dashingCoolDown = 0.5f; 
 
+    private float fastFallMultiplier = 10.0f; // fast fall mechanics 
+    private float maxFallSpeed = -40f;
     public CharacterData characterD; //this will be for the character and the next 2 variables
     public SpriteRenderer artworkSprite;
     private int selectedOption = 0;
-
 
 
     [SerializeField] private Rigidbody2D rb;
@@ -73,13 +74,23 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    private void FixedUpdate()
-    
+    private void FixedUpdate(){
+    if (isDashing)
+        return;
+
+    rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
+
+    // Fast fall when pressing down while in the air
+    if (!IsGrounded() && Input.GetAxisRaw("Vertical") < 0f && rb.linearVelocity.y < 0f)
     {
-        if(isDashing)
-            return;
-        rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
+        float newYVelocity = rb.linearVelocity.y + Physics2D.gravity.y * (fastFallMultiplier - 1f) * Time.fixedDeltaTime;
+
+        // Prevent falling infinitely fast
+        newYVelocity = Mathf.Max(newYVelocity, maxFallSpeed);
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, newYVelocity);
     }
+}
 
     private bool IsGrounded()
     {

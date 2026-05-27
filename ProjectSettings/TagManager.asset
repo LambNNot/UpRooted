@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Platform
   - Suspended Platform
+  - OneWayPlatform
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,7 @@ TagManager:
   - UI
   - Ground
   - Walls
-  - 
-  - 
+  - OneWayPlatform
   - 
   - 
   - 
