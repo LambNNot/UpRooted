@@ -31,17 +31,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        
         combat = GetComponent<PlayerCombat>();
         sr = GetComponent<SpriteRenderer>();
-        if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
-        {
-            selectedOption = 0;
-        }
-        else
-        {
-            Load();
-        }
-        UpdateCharacter(selectedOption);
+        // if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
+        // {
+        //     selectedOption = 0;
+        // }
+        // else
+        // {
+        //     Load();
+        // }
+        // UpdateCharacter(selectedOption);
+        Debug.Log($"Player active: {gameObject.activeInHierarchy}");
+        Debug.Log($"Renderer enabled: {sr.enabled}");
+        Debug.Log($"Sprite: {sr.sprite}");
+        Debug.Log($"Color: {sr.color}");
+        Debug.Log($"Material: {sr.sharedMaterial}");
+        Debug.Log($"Shader: {sr.sharedMaterial.shader.name}");
+        Debug.Log($"Position: {transform.position}");
+        Debug.Log($"Scale: {transform.localScale}");
     }
 
     private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
@@ -135,7 +144,8 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        float dashDirection = isFacingRight ? 1f : -1f;
+        rb.linearVelocity = new Vector2(dashDirection * dashingPower, 0f);
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity;
         isDashing = false;
