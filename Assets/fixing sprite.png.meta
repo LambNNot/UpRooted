@@ -116,12 +116,12 @@ TextureImporter:
       name: fixing sprite_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 840
-        height: 562
+        x: 193
+        y: 30
+        width: 439
+        height: 507
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a5c6270d2a059e940b174782f2375313
     internalID: 0
     vertices: []
     indices: 
