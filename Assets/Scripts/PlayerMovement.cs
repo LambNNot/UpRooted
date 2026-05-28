@@ -151,5 +151,6 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
+
     
 }

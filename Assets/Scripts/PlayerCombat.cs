@@ -6,7 +6,8 @@ public class PlayerCombat : MonoBehaviour
 {
     
     [SerializeField]
-    private double health = 3;
+    private int health = 3;
+    public HealthBar healthBar; // will be for the slider
 
     private float attackRange = 0.55f;
     private float attackOffset = 1.0f;
@@ -46,6 +47,10 @@ public class PlayerCombat : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         originalColor = sr.color;
+
+        if(healthBar != null){ // will set bar to max hp 
+            healthBar.SetMaxHealth(health);
+        }
     }
 
     private void Update()
@@ -67,6 +72,10 @@ public class PlayerCombat : MonoBehaviour
         }
 
         health -= 1;
+
+        if(healthBar != null){ //will update the slider 
+            healthBar.SetHealth(health);
+        }
 
         float horizontalDir =
             Mathf.Sign(transform.position.x - attacker.position.x);
