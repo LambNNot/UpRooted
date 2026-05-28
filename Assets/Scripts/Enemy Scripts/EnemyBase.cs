@@ -10,7 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected float walkSpeed = 5f;
 
-    private float recoilForce = 1f;
+    private float knockbackForce = 1f;
 
     protected Vector3 moveDirection = Vector3.left;
 
@@ -25,9 +25,15 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Update();
 
-    private void TakeDamage(double damage, Transform attacker)
+    public void TakeDamage(double damage, Transform attacker)
     {
         health -= Math.Floor(damage);
+
+        float recoilForce = knockbackForce;
+        if (damage > 0)
+        {
+            recoilForce *= 5;
+        }
 
         float horizontalDir =
             Mathf.Sign(transform.position.x - attacker.position.x);

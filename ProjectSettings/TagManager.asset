@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Suspended Platform
   - OneWayPlatform
+  - Enemy
   layers:
   - Default
   - TransparentFX

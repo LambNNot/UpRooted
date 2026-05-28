@@ -1,14 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    [SerializeField]
-    private double health = 3;
-
     private float horizontalInput;
     private float speed = 8f;
     private float jumpingPower = 16f;
@@ -20,31 +14,25 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.5f; 
 
-    private float recoilForce = 8f;
-
     private float fastFallMultiplier = 10.0f; // fast fall mechanics 
     private float maxFallSpeed = -40f;
     public CharacterData characterD; //this will be for the character and the next 2 variables
     private SpriteRenderer sr;
     private int selectedOption = 0;
 
-    private bool isRecoiling = false;
-
-    [SerializeField]
-    private float recoilDuration = 0.2f;
-    [SerializeField]
-    private Color recoilColor;
-    private Color originalColor;
 
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(1f, 0.2f);
     [SerializeField] private LayerMask groundLayer;
+
+    private PlayerCombat combat;
 
     void Start()
     {
+        combat = GetComponent<PlayerCombat>();
         sr = GetComponent<SpriteRenderer>();
-        originalColor = sr.color;
         if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
         {
             selectedOption = 0;
@@ -92,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing || isRecoiling)
+        if (isDashing || combat.isRecoiling)
             return;
 
         rb.linearVelocity = new Vector2(
@@ -122,7 +110,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapBox(
+            groundCheck.position,
+            groundCheckSize,
+            0f,
+            groundLayer
+        );
     }
 
     private void Flip()
@@ -150,62 +143,13 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-    private void TakeDamage(Transform attacker)
+    private void OnDrawGizmosSelected()
     {
-        health -= 1;
+        if (groundCheck == null)
+            return;
 
-        float horizontalDir =
-            Mathf.Sign(transform.position.x - attacker.position.x);
-
-        rb.linearVelocity = Vector2.zero;
-
-        rb.AddForce(
-            new Vector2(horizontalDir * recoilForce, recoilForce),
-            ForceMode2D.Impulse
-        );
-
-        StartCoroutine(RecoilCoroutine());
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    private IEnumerator RecoilCoroutine()
-{
-    isRecoiling = true;
-
-    float elapsed = 0f;
-    float flashInterval = 0.08f;
-
-    while (elapsed < recoilDuration)
-    {
-        sr.color = recoilColor;
-        yield return new WaitForSeconds(flashInterval);
-
-        sr.color = originalColor;
-        yield return new WaitForSeconds(flashInterval);
-
-        elapsed += flashInterval * 2f;
-    }
-
-    sr.color = originalColor;
-    isRecoiling = false;
-}
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-         if (collision.gameObject.CompareTag("Enemy") && !isRecoiling)
-        {
-            Debug.Log("Player hit enemy: " + collision.gameObject.name);
-            TakeDamage(collision.transform);
-        }
-    }
-
-    private void Die()
-    {
-        Debug.Log("Player died");
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
     
 }
