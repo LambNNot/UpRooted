@@ -61,7 +61,7 @@ public class DeathBarrier : MonoBehaviour
     // so designers can see it even when not selected.
     private void OnDrawGizmos()
     {
-        BoxCollider2D box = GetComponent<boxcollider2d>();
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
         if (box == null) return;
 
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
