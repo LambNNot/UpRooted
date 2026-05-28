@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,16 +17,22 @@ public class PlayerMovement : MonoBehaviour
     private float fastFallMultiplier = 10.0f; // fast fall mechanics 
     private float maxFallSpeed = -40f;
     public CharacterData characterD; //this will be for the character and the next 2 variables
-    public SpriteRenderer artworkSprite;
+    private SpriteRenderer sr;
     private int selectedOption = 0;
+
 
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(1f, 0.2f);
     [SerializeField] private LayerMask groundLayer;
+
+    private PlayerCombat combat;
 
     void Start()
     {
+        combat = GetComponent<PlayerCombat>();
+        sr = GetComponent<SpriteRenderer>();
         if (!PlayerPrefs.HasKey("selectedOption")) //this will check if there is a saved data or will give the player the character at 0
         {
             selectedOption = 0;
@@ -43,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateCharacter(int selectedOption) // gets the name and character from the character data and updates it
     {
         Character character = characterD.GetCharacter(selectedOption);
-        artworkSprite.sprite = character.characterSprite;
+        sr.sprite = character.characterSprite;
     }
 
     private void Load()
@@ -74,27 +78,44 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    private void FixedUpdate(){
-    if (isDashing)
-        return;
-
-    rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
-
-    // Fast fall when pressing down while in the air
-    if (!IsGrounded() && Input.GetAxisRaw("Vertical") < 0f && rb.linearVelocity.y < 0f)
+    private void FixedUpdate()
     {
-        float newYVelocity = rb.linearVelocity.y + Physics2D.gravity.y * (fastFallMultiplier - 1f) * Time.fixedDeltaTime;
+        if (isDashing || combat.isRecoiling)
+            return;
 
-        // Prevent falling infinitely fast
-        newYVelocity = Mathf.Max(newYVelocity, maxFallSpeed);
+        rb.linearVelocity = new Vector2(
+            horizontalInput * speed,
+            rb.linearVelocity.y
+        );
 
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, newYVelocity);
+        // Fast fall
+        if (!IsGrounded() &&
+            Input.GetAxisRaw("Vertical") < 0f &&
+            rb.linearVelocity.y < 0f)
+        {
+            float newYVelocity =
+                rb.linearVelocity.y +
+                Physics2D.gravity.y *
+                (fastFallMultiplier - 1f) *
+                Time.fixedDeltaTime;
+
+            newYVelocity = Mathf.Max(newYVelocity, maxFallSpeed);
+
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                newYVelocity
+            );
+        }
     }
-}
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapBox(
+            groundCheck.position,
+            groundCheckSize,
+            0f,
+            groundLayer
+        );
     }
 
     private void Flip()
@@ -121,4 +142,14 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingCoolDown);
         canDash = true;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck == null)
+            return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+    }
+    
 }

@@ -127,7 +127,7 @@ public class ChargerScript : EnemyBase
         transform.position += movement;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         if (isCharging)
         {
@@ -136,8 +136,7 @@ public class ChargerScript : EnemyBase
 
             return;
         }
-
-
+        base.OnCollisionEnter2D(collision);
         TurnAround();
     }
 

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 403330359}
   - component: {fileID: 403330358}
   - component: {fileID: 403330357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 871534736}
   - component: {fileID: 871534735}
   - component: {fileID: 871534734}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,6 +616,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &911561296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8128517542479957311, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+  m_PrefabInstance: {fileID: 1885723913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &911561302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911561296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ded128cc243e414796a1538854a4f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  health: 3
+  attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  recoilColor: {r: 0, g: 0, b: 0, a: 0}
+  isAttacking: 0
+  isInvulnerable: 0
 --- !u!1 &1167055713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1057,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 775811586624049187, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
   m_PrefabInstance: {fileID: 2775488527568004201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1885723913
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8128517542479957311, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793567353503556666, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8128517542479957311, guid: 927b49995941afc4992c2245b1877a52, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 911561302}
+  m_SourcePrefab: {fileID: 100100000, guid: 927b49995941afc4992c2245b1877a52, type: 3}
 --- !u!1001 &631274494774318546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1050,6 +1132,10 @@ PrefabInstance:
     - target: {fileID: 3073183011540881003, guid: 6ddfb56439d3e5f4a8d17530448aff2b, type: 3}
       propertyPath: m_Name
       value: Flyer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073183011540881003, guid: 6ddfb56439d3e5f4a8d17530448aff2b, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4148152789786838809, guid: 6ddfb56439d3e5f4a8d17530448aff2b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1256,6 +1342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hopper
       objectReference: {fileID: 0}
+    - target: {fileID: 7438294591954293161, guid: 4881ddb565ba2c24d8fdeb715405da62, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8630206515810159932, guid: 4881ddb565ba2c24d8fdeb715405da62, type: 3}
       propertyPath: jumpColor.g
       value: 1
@@ -1336,6 +1426,10 @@ PrefabInstance:
     - target: {fileID: 8906185933126354167, guid: 1a96f9195ce002243ba1c6e6e817aa41, type: 3}
       propertyPath: m_Name
       value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906185933126354167, guid: 1a96f9195ce002243ba1c6e6e817aa41, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1442,6 +1536,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charger
       objectReference: {fileID: 0}
+    - target: {fileID: 8245487248373906402, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1540,6 +1638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walker
       objectReference: {fileID: 0}
+    - target: {fileID: 6701559196222305609, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8829408608003709208, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
       propertyPath: m_LocalScale.x
       value: 5.0608277
@@ -1614,3 +1716,4 @@ SceneRoots:
   - {fileID: 2775488527568004201}
   - {fileID: 941682804248837376}
   - {fileID: 631274494774318546}
+  - {fileID: 1885723913}
