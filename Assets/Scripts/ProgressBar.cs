@@ -22,15 +22,6 @@ public class ProgressBar : MonoBehaviour
         }
     }
 
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Backspace)) // for testing, the progress will go up when pressing backspace, will change later 
-        {
-            IncrementBar(1);
-        }        
-    }
-
     public void IncrementBar(int amount)
     {
         enemiesDefeated += amount; //if an enemy is defeated, will increase the progress 
