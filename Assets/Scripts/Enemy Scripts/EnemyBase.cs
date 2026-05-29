@@ -17,6 +17,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
 
+    [SerializeField]
+    protected AudioClip deathSound;
+    [SerializeField]
+    protected AudioClip hitSound;
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,6 +33,13 @@ public abstract class EnemyBase : MonoBehaviour
     public void TakeDamage(double damage, Transform attacker)
     {
         health -= Math.Floor(damage);
+       
+        if (health <= 0)
+        {
+            Die();
+        }
+
+        AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
         float recoilForce = knockbackForce;
         if (damage > 0)
@@ -44,15 +56,11 @@ public abstract class EnemyBase : MonoBehaviour
             new Vector2(horizontalDir * recoilForce, recoilForce),
             ForceMode2D.Impulse
         );
-
-        if (health <= 0)
-        {
-            Die();
-        }
     }
 
     private void Die()
     {
+        AudioSource.PlayClipAtPoint(deathSound, transform.position);
         Destroy(gameObject);
     }
 

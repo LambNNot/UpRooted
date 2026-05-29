@@ -7,6 +7,8 @@ public class PlayerCombat : MonoBehaviour
     
     [SerializeField]
     private double health = 3;
+    [SerializeField]
+    private AudioClip hitSound;
 
     private float attackRange = 0.55f;
     private float attackOffset = 1.0f;
@@ -67,6 +69,7 @@ public class PlayerCombat : MonoBehaviour
         }
 
         health -= 1;
+        AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
         float horizontalDir =
             Mathf.Sign(transform.position.x - attacker.position.x);
