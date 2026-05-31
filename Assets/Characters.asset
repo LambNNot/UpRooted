@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: Characters
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   character:
-  - characterName: Iggy
-    characterSprite: {fileID: -6747458662790068053, guid: 51902dd2967da9e4988a42f355cc7ecd, type: 3}
-  - characterName: Sticky
-    characterSprite: {fileID: 5741872655816577373, guid: 3350c36c534b3524fa4c00a5245c174e, type: 3}
+  - characterName: adsadsd
+    characterSprite: {fileID: 7482667652216324306, guid: 28abcd6aba20847e89c77b241370384f, type: 3}
