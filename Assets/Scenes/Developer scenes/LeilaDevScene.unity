@@ -280,6 +280,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  dashSound: {fileID: 8300000, guid: 9a19a25e7a41a3f4689d1fd577df25b0, type: 3}
 --- !u!50 &370645422
 Rigidbody2D:
   serializedVersion: 5
@@ -621,7 +622,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 39a3a6dc5e84f3143965e182ab1dceae, type: 3}
+  m_Resource: {fileID: 8300000, guid: 686d3a911cc68bf4c8ea2c47b771bbdd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.15
   m_Pitch: 1
