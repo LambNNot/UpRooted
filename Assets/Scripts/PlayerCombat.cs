@@ -7,6 +7,8 @@ public class PlayerCombat : MonoBehaviour
     
     [SerializeField]
     private int health = 3;
+    [SerializeField]
+    private AudioClip hitSound;
     public HealthBar healthBar; // will be for the slider
 
     private float attackRange = 0.55f;
@@ -72,6 +74,7 @@ public class PlayerCombat : MonoBehaviour
         }
 
         health -= 1;
+        AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
         if(healthBar != null) // will update the slider
         {
