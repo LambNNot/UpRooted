@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8397917248643332167}
   m_Layer: 0
   m_Name: Flyer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   bottomPoint: {fileID: 5653957087881416068}
   upColor: {r: 1, g: 1, b: 1, a: 1}
   downColor: {r: 1, g: 1, b: 1, a: 1}
-  lingerTime: 0.25
+  lingerTime: 0.22
 --- !u!70 &5880341160062415186
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.008197978, y: 0.10665882}
-  m_Size: {x: 0.19368057, y: 0.11194311}
+  m_Size: {x: 0.26, y: 0.22}
   m_Direction: 1
 --- !u!50 &8397917248643332167
 Rigidbody2D:
@@ -191,7 +191,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3073183011540881003}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

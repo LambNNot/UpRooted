@@ -10,7 +10,7 @@ public class PlayerCombat : MonoBehaviour
     public HealthBar healthBar; // will be for the slider
 
     private float attackRange = 0.55f;
-    private float attackOffset = 1.0f;
+    private float attackOffset = 1.225f;
 
     
     [SerializeField] private InputActionReference attackAction;
@@ -40,11 +40,13 @@ public class PlayerCombat : MonoBehaviour
 
     private SpriteRenderer sr;
     private Rigidbody2D rb;
+    private PlayerMovement playerMovement; // reference to the player's movement script for the bounce mechanic
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        playerMovement = GetComponent<PlayerMovement>(); // this will be for the bounce mechanic when the player jumps on an enemy
         originalColor = sr.color;
 
         if(healthBar != null) //will set the bar to max
@@ -55,15 +57,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        Vector2 inputDirection = new Vector2(
-            Input.GetAxisRaw("Horizontal"),
-            Input.GetAxisRaw("Vertical")
-        );
-
-        lastAttackDirection = inputDirection.normalized;
-
+        lastAttackDirection = GetAttackDirection();
     }
 
+    // player takes damage when colliding with an enemy 
     private void TakeDamage(Transform attacker)
     {
         if (isInvulnerable)
@@ -73,7 +70,7 @@ public class PlayerCombat : MonoBehaviour
 
         health -= 1;
 
-        if(healthBar != null) // will update the slider
+        if (healthBar != null) // will update the slider
         {
             healthBar.SetHealth(health);
         }
@@ -165,7 +162,16 @@ public class PlayerCombat : MonoBehaviour
 
             if (enemyBase != null)
             {
-                enemyBase.TakeDamage(1, transform);
+                bool hitFromAbove = inputDirection.y < 0f && transform.position.y > collider.transform.position.y; // Check if the attack is coming from above
+                bool enemyDied = enemyBase.TakeDamage(1, transform);
+                if (hitFromAbove && playerMovement != null)
+                {
+                    playerMovement.BounceFromEnemy(); // Call the bounce method on the player's movement script
+                    if (enemyDied)
+                    {
+                        playerMovement.ResetDashCoolDown(); // Resetting cooldown if the enemy dies from the bounce attack
+                    }
+                }
             }
         }
 
@@ -259,11 +265,29 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
+        Attack(GetAttackDirection());
+    }
+
+    private Vector2 GetAttackDirection()
+    {
         Vector2 inputDirection = new Vector2(
             Input.GetAxisRaw("Horizontal"),
             Input.GetAxisRaw("Vertical")
         );
 
-        Attack(inputDirection);
+        if (inputDirection.y > 0f)
+            return Vector2.up;
+
+        if (inputDirection.y < 0f)
+            return Vector2.down;
+
+        int facingDirection = 1;
+
+        if (playerMovement != null)
+        {
+            facingDirection = playerMovement.GetFacingDirection();
+        }
+
+        return new Vector2(facingDirection, 0f);
     }
 }

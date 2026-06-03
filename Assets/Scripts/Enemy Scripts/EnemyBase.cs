@@ -25,30 +25,23 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Update();
 
-    public void TakeDamage(double damage, Transform attacker)
+    public bool TakeDamage(double damage, Transform attacker)
     {
         health -= Math.Floor(damage);
 
-        float recoilForce = knockbackForce;
         if (damage > 0)
         {
-            recoilForce *= 5;
+            float recoilForce = knockbackForce * 5;
+            ApplyKnockback(attacker, recoilForce);
         }
-
-        float horizontalDir =
-            Mathf.Sign(transform.position.x - attacker.position.x);
-
-        rb.linearVelocity = Vector2.zero;
-
-        rb.AddForce(
-            new Vector2(horizontalDir * recoilForce, recoilForce),
-            ForceMode2D.Impulse
-        );
 
         if (health <= 0)
         {
             Die();
+            return true;
         }
+
+        return false;
     }
 
     private void Die()
@@ -84,12 +77,23 @@ public abstract class EnemyBase : MonoBehaviour
         scale.x = -scale.x;
         transform.localScale = scale;
     }
+    protected virtual void ApplyKnockback(Transform attacker, float recoilForce)
+    {
+        float horizontalDir =
+            Mathf.Sign(transform.position.x - attacker.position.x);
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(
+            new Vector2(horizontalDir * recoilForce, recoilForce),
+            ForceMode2D.Impulse
+        );
+    }
+    
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            TakeDamage(0, collision.transform);
-        }
+        //child enemy overrides if they need collision behavior 
     }
+
 }

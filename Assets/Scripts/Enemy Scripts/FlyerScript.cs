@@ -79,4 +79,12 @@ public class FlyerScript : EnemyBase
             sr.color = downColor;
         }
     }
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Flyer intentionally does nothing on collision for now.
+    }
+    protected override void ApplyKnockback(Transform attacker, float recoilForce)
+    {
+        // Flyer takes damage but ignores knockback.
+    }
 }
