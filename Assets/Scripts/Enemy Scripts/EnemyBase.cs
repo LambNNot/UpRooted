@@ -37,6 +37,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (health <= 0)
         {
             Die();
+            return true;
         }
 
         AudioSource.PlayClipAtPoint(hitSound, transform.position);
@@ -56,6 +57,9 @@ public abstract class EnemyBase : MonoBehaviour
             new Vector2(horizontalDir * recoilForce, recoilForce),
             ForceMode2D.Impulse
         );
+
+        return false;
+
     }
 
     private void Die()
