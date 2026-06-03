@@ -17,6 +17,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
 
+    [SerializeField]
+    protected AudioClip deathSound;
+    [SerializeField]
+    protected AudioClip hitSound;
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,23 +34,33 @@ public abstract class EnemyBase : MonoBehaviour
     {
         health -= Math.Floor(damage);
 
-        if (damage > 0)
-        {
-            float recoilForce = knockbackForce * 5;
-            ApplyKnockback(attacker, recoilForce);
-        }
-
         if (health <= 0)
         {
             Die();
-            return true;
         }
 
-        return false;
+        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+        float recoilForce = knockbackForce;
+        if (damage > 0)
+        {
+            recoilForce *= 5;
+        }
+
+        float horizontalDir =
+            Mathf.Sign(transform.position.x - attacker.position.x);
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(
+            new Vector2(horizontalDir * recoilForce, recoilForce),
+            ForceMode2D.Impulse
+        );
     }
 
     private void Die()
     {
+        AudioSource.PlayClipAtPoint(deathSound, transform.position);
         ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died
         if(progressBar != null)
         {

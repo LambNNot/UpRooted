@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(1f, 0.2f);
     [SerializeField] private LayerMask groundLayer;
     private bool wasGrounded;
+    [SerializeField] private AudioClip dashSound;
 
     private PlayerCombat combat;
 
@@ -175,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-
+        AudioSource.PlayClipAtPoint(dashSound, transform.position);
         rb.gravityScale = 0f;
 
         float dashDirection = isFacingRight ? 1f : -1f;
