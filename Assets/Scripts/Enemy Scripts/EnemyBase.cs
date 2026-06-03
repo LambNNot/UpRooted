@@ -61,6 +61,12 @@ public abstract class EnemyBase : MonoBehaviour
     private void Die()
     {
         AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died
+        if(progressBar != null)
+        {
+            progressBar.IncrementBar(1);
+        }
+
         Destroy(gameObject);
     }
 

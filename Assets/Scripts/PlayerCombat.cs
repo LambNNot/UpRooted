@@ -6,16 +6,16 @@ public class PlayerCombat : MonoBehaviour
 {
     
     [SerializeField]
-    private double health = 3;
+    private int health = 3;
     [SerializeField]
     private AudioClip hitSound;
+    public HealthBar healthBar; // will be for the slider
 
     private float attackRange = 0.55f;
     private float attackOffset = 1.0f;
 
     
     [SerializeField] private InputActionReference attackAction;
-
 
     private Vector2 lastAttackDirection = Vector2.zero;
     
@@ -48,6 +48,11 @@ public class PlayerCombat : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         originalColor = sr.color;
+
+        if(healthBar != null) //will set the bar to max
+        {
+            healthBar.SetMaxHealth(health);
+        }
     }
 
     private void Update()
@@ -71,6 +76,11 @@ public class PlayerCombat : MonoBehaviour
         health -= 1;
         AudioSource.PlayClipAtPoint(hitSound, transform.position);
 
+        if(healthBar != null) // will update the slider
+        {
+            healthBar.SetHealth(health);
+        }
+
         float horizontalDir =
             Mathf.Sign(transform.position.x - attacker.position.x);
 
@@ -86,6 +96,7 @@ public class PlayerCombat : MonoBehaviour
         if (health <= 0)
         {
             Die();
+            
         }
     }
 
