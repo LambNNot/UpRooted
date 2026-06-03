@@ -11,7 +11,10 @@ public class PlayerCombat : MonoBehaviour
     private AudioClip hitSound;
     public HealthBar healthBar; // will be for the slider
 
-    private float attackRange = 0.55f;
+    [SerializeField]
+    private Transform attackPoint;
+
+    private float attackRange = 0.7f;
     private float attackOffset = 1.225f;
 
     
@@ -71,7 +74,10 @@ public class PlayerCombat : MonoBehaviour
         }
 
         health -= 1;
-        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        if (hitSound)
+        {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);   
+        }
 
         if (healthBar != null) // will update the slider
         {

@@ -176,7 +176,10 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        AudioSource.PlayClipAtPoint(dashSound, transform.position);
+        if (dashSound)
+        {
+            AudioSource.PlayClipAtPoint(dashSound, transform.position);   
+        }
         rb.gravityScale = 0f;
 
         float dashDirection = isFacingRight ? 1f : -1f;

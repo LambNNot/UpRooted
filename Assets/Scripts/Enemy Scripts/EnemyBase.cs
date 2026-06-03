@@ -40,7 +40,11 @@ public abstract class EnemyBase : MonoBehaviour
             return true;
         }
 
-        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        if (hitSound)
+        {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);    
+        }
+        
 
         float recoilForce = knockbackForce;
         if (damage > 0)
@@ -64,7 +68,10 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void Die()
     {
-        AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        if (deathSound)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);   
+        }
         ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died
         if(progressBar != null)
         {
