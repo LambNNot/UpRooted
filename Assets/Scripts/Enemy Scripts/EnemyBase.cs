@@ -67,6 +67,12 @@ public abstract class EnemyBase : MonoBehaviour
             progressBar.IncrementBar(1);
         }
 
+        Level2Room roomLock = FindAnyObjectByType<Level2Room>();
+        if (roomLock != null)
+        {
+            roomLock.EnemyDefeated();
+        }
+
         Destroy(gameObject);
     }
 
