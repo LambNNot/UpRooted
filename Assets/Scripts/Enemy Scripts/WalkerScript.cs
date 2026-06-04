@@ -10,9 +10,8 @@ public class WalkerScript : EnemyBase
         Walk(); 
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
 
         if (!collision.gameObject.CompareTag("Player"))
         {

@@ -30,7 +30,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Update();
 
-    public bool TakeDamage(double damage, Transform attacker)
+    public virtual bool TakeDamage(double damage, Transform attacker)
     {
         health -= Math.Floor(damage);
 
@@ -87,7 +87,7 @@ public abstract class EnemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected void TurnAround()
+    protected virtual void TurnAround()
     {
         moveDirection = -moveDirection;
         SwitchDirection();
@@ -105,9 +105,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void SwitchDirection()
     {
-        Vector3 scale = transform.localScale;
-        scale.x = -scale.x;
-        transform.localScale = scale;
+        sr.flipX = !sr.flipX;
     }
     protected virtual void ApplyKnockback(Transform attacker, float recoilForce)
     {
@@ -123,9 +121,9 @@ public abstract class EnemyBase : MonoBehaviour
     }
     
 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
-    {
-        //child enemy overrides if they need collision behavior 
-    }
+    // protected virtual void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     //child enemy overrides if they need collision behavior 
+    // }
 
 }

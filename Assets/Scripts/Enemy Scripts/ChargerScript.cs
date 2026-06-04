@@ -4,51 +4,33 @@ using UnityEngine;
 
 public class ChargerScript : EnemyBase
 {
-    [SerializeField]
-    private float chargeDelay = 0.5f;
+    [SerializeField] private float chargeDelay = 0.5f;
+    [SerializeField] private float chargeDuration = 1.5f;
+    [SerializeField] private float chargeSpeed = 15f;
+    [SerializeField] private float sightDistance = 5f;
 
-    [SerializeField]
-    private float chargeDuration = 1.5f;
+    [SerializeField] private LayerMask targetLayers;
 
-    [SerializeField]
-    private float chargeSpeed = 15f;
+    [SerializeField] private Color walkColor;
+    [SerializeField] private Color prepareColor;
+    [SerializeField] private Color chargeColor;
 
-    [SerializeField]
-    private float sightDistance = 5f;
-
-    [SerializeField]
-    private LayerMask targetLayers;
-
-    [SerializeField]
-    private Color walkColor;
-
-    [SerializeField]
-    private Color prepareColor;
-
-    [SerializeField]
-    private Color chargeColor;
-
-    [SerializeField]
-    private List<GameObject> targets = new List<GameObject>();
-
-    [SerializeField]
-    private Transform raycastOrigin;
+    [SerializeField] private Transform raycastOrigin;
+    [SerializeField] private Transform wallDetectionPoint;
+    [SerializeField] private float wallDetectionRadius = 0.1f;
 
     private bool isCharging = false;
     private bool isWaiting = false;
     private float chargeTimer = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         base.Start();
         sr.color = walkColor;
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    private void FixedUpdate()
     {
-
         if (isWaiting)
         {
             return;
@@ -56,10 +38,16 @@ public class ChargerScript : EnemyBase
 
         if (isCharging)
         {
+            UpdateWallDetectionPoint();
             ChargeForward();
 
-            chargeTimer += Time.deltaTime;
+            if (CheckWallDetection())
+            {
+                stopCharging();
+                return;
+            }
 
+            chargeTimer += Time.fixedDeltaTime;
 
             if (chargeTimer > chargeDuration)
             {
@@ -70,13 +58,15 @@ public class ChargerScript : EnemyBase
         }
 
         Walk();
+    }
 
+    protected override void Update()
+    {
         LookAhead();
     }
 
     private void stopCharging()
     {
-
         sr.color = walkColor;
         isCharging = false;
         chargeTimer = 0f;
@@ -86,34 +76,20 @@ public class ChargerScript : EnemyBase
 
     private void beginCharging()
     {
-
         isCharging = true;
         isWaiting = false;
-
         sr.color = chargeColor;
-    }
-
-    private IEnumerator WaitCharge()
-    {
-
-        yield return new WaitForSeconds(chargeDelay);
-
-
-        beginCharging();
     }
 
     private void PrepareCharge()
     {
-
         if (isWaiting || isCharging)
         {
             return;
         }
 
         sr.color = prepareColor;
-
         isWaiting = true;
-
 
         Invoke(nameof(beginCharging), chargeDelay);
     }
@@ -121,23 +97,33 @@ public class ChargerScript : EnemyBase
     private void ChargeForward()
     {
         Vector2 dir = ((Vector2)getMoveDirection()).normalized;
-
-        Vector3 movement = dir * chargeSpeed * Time.deltaTime;
-
-        transform.position += movement;
+        rb.MovePosition(rb.position + dir * chargeSpeed * Time.fixedDeltaTime);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void UpdateWallDetectionPoint()
     {
-        if (isCharging)
+        Vector2 dir = ((Vector2)getMoveDirection()).normalized;
+
+        Vector3 localPos = wallDetectionPoint.localPosition;
+        localPos.x = Mathf.Abs(localPos.x) * Mathf.Sign(dir.x);
+        wallDetectionPoint.localPosition = localPos;
+    }
+
+    private bool CheckWallDetection()
+    {
+        return Physics2D.OverlapCircle(
+            wallDetectionPoint.position,
+            wallDetectionRadius,
+            targetLayers
+        );
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!isCharging)
         {
-
-            stopCharging();
-
-            return;
+            TurnAround();
         }
-        base.OnCollisionEnter2D(collision);
-        TurnAround();
     }
 
     private void LookAhead()
@@ -145,7 +131,7 @@ public class ChargerScript : EnemyBase
         Vector2 dir = ((Vector2)getMoveDirection()).normalized;
 
         Debug.DrawRay(
-            transform.position,
+            raycastOrigin.position,
             dir * sightDistance,
             Color.red
         );
@@ -159,10 +145,36 @@ public class ChargerScript : EnemyBase
 
         if (hit.collider != null)
         {
-
             PrepareCharge();
         }
     }
 
-    
+    public override bool TakeDamage(double damage, Transform attacker)
+    {
+        if (isCharging)
+        {
+            return false;
+        }
+
+        return base.TakeDamage(damage, attacker);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (wallDetectionPoint == null)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(wallDetectionPoint.position, wallDetectionRadius);
+    }
+    protected override void TurnAround()
+    {
+        base.TurnAround();
+        UpdateWallDetectionPoint();
+    }
 }
+
+
+
