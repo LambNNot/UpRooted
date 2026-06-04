@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5600395961392231431}
   m_Layer: 0
   m_Name: Charger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,6 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   health: 2
   walkSpeed: 5
+  deathSound: {fileID: 8300000, guid: 7dff9a3bffbaee74db26a90ce12763fa, type: 3}
+  hitSound: {fileID: 8300000, guid: 4bff74a130ee5c94689dcf00586a25eb, type: 3}
   chargeDelay: 0.5
   chargeDuration: 1.5
   chargeSpeed: 20
@@ -151,7 +153,7 @@ MonoBehaviour:
   prepareColor: {r: 0.7294118, g: 0.3333333, b: 0.8274511, a: 1}
   chargeColor: {r: 0.6301887, g: 0, b: 0, a: 1}
   targets:
-  - {fileID: 0}
+  - {fileID: 8128517542479957311, guid: 927b49995941afc4992c2245b1877a52, type: 3}
   - {fileID: 0}
   raycastOrigin: {fileID: 775811586624049187}
 --- !u!50 &8318934466209079798
