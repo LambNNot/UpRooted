@@ -30,16 +30,21 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Update();
 
-    public void TakeDamage(double damage, Transform attacker)
+    public bool TakeDamage(double damage, Transform attacker)
     {
         health -= Math.Floor(damage);
-       
+
         if (health <= 0)
         {
             Die();
+            return true;
         }
 
-        AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        if (hitSound)
+        {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);    
+        }
+        
 
         float recoilForce = knockbackForce;
         if (damage > 0)
@@ -56,11 +61,17 @@ public abstract class EnemyBase : MonoBehaviour
             new Vector2(horizontalDir * recoilForce, recoilForce),
             ForceMode2D.Impulse
         );
+
+        return false;
+
     }
 
     private void Die()
     {
-        AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        if (deathSound)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);   
+        }
         ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died
         if(progressBar != null)
         {
@@ -92,12 +103,23 @@ public abstract class EnemyBase : MonoBehaviour
         scale.x = -scale.x;
         transform.localScale = scale;
     }
+    protected virtual void ApplyKnockback(Transform attacker, float recoilForce)
+    {
+        float horizontalDir =
+            Mathf.Sign(transform.position.x - attacker.position.x);
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(
+            new Vector2(horizontalDir * recoilForce, recoilForce),
+            ForceMode2D.Impulse
+        );
+    }
+    
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            TakeDamage(0, collision.transform);
-        }
+        //child enemy overrides if they need collision behavior 
     }
+
 }
