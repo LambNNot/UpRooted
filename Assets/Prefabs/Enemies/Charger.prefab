@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5003555744037697563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6832169554373042850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1140004524917581333}
+  m_Layer: 0
+  m_Name: WallDetectionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1140004524917581333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832169554373042850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.148, y: 0.057, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5003555744037697563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8245487248373906402
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +77,7 @@ GameObject:
   - component: {fileID: 5600395961392231431}
   m_Layer: 0
   m_Name: Charger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,6 +96,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 775811586624049187}
+  - {fileID: 1140004524917581333}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7898661364999438611
@@ -140,6 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   health: 2
   walkSpeed: 5
+  deathSound: {fileID: 0}
+  hitSound: {fileID: 0}
   chargeDelay: 0.5
   chargeDuration: 1.5
   chargeSpeed: 20
@@ -150,10 +184,9 @@ MonoBehaviour:
   walkColor: {r: 1, g: 1, b: 1, a: 1}
   prepareColor: {r: 0.7294118, g: 0.3333333, b: 0.8274511, a: 1}
   chargeColor: {r: 0.6301887, g: 0, b: 0, a: 1}
-  targets:
-  - {fileID: 0}
-  - {fileID: 0}
   raycastOrigin: {fileID: 775811586624049187}
+  wallDetectionPoint: {fileID: 1140004524917581333}
+  wallDetectionRadius: 0.1
 --- !u!50 &8318934466209079798
 Rigidbody2D:
   serializedVersion: 5

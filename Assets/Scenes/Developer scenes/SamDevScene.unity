@@ -1001,6 +1001,7 @@ MonoBehaviour:
   health: 3
   hitSound: {fileID: 0}
   healthBar: {fileID: 861157060}
+  attackPoint: {fileID: 0}
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   recoilColor: {r: 0, g: 0, b: 0, a: 0}
   isAttacking: 0
@@ -2095,11 +2096,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567805159}
   m_CullTransparentMesh: 1
---- !u!4 &1697819196 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 775811586624049187, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-  m_PrefabInstance: {fileID: 2775488527568004201}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1827018244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,18 +2727,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5003555744037697563, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.703126
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003555744037697563, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6.7132745
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003555744037697563, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.96201724
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003555744037697563, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.454
       objectReference: {fileID: 0}
@@ -2782,42 +2766,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: walkColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: walkColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: walkColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: raycastOrigin
-      value: 
-      objectReference: {fileID: 1697819196}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: prepareColor.b
-      value: 0.8274511
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: prepareColor.g
-      value: 0.3333333
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: prepareColor.r
-      value: 0.7294118
-      objectReference: {fileID: 0}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: 'targets.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1260911313}
-    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
-      propertyPath: 'targets.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1167055713}
     - target: {fileID: 8245487248373906402, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
       propertyPath: m_Name
       value: Charger
