@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   health: 2
   walkSpeed: 5
+  deathSound: {fileID: 8300000, guid: 7dff9a3bffbaee74db26a90ce12763fa, type: 3}
+  hitSound: {fileID: 8300000, guid: 4bff74a130ee5c94689dcf00586a25eb, type: 3}
 --- !u!70 &1973952395417631100
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
