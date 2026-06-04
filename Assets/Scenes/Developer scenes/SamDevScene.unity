@@ -999,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   health: 3
+  hitSound: {fileID: 0}
   healthBar: {fileID: 861157060}
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   recoilColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1957,7 +1958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556471ee5294847458323b14f30d559c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathMenu
-  gameOverMenu: {fileID: 0}
 --- !u!1 &1567805159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,7 +3055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1352337386415813925, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 413.20007
+      value: 332
       objectReference: {fileID: 0}
     - target: {fileID: 1352337386415813925, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
       propertyPath: m_AnchoredPosition.y
