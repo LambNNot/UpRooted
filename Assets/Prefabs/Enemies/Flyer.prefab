@@ -141,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   health: 2
   walkSpeed: 3
+  deathSound: {fileID: 8300000, guid: 7dff9a3bffbaee74db26a90ce12763fa, type: 3}
+  hitSound: {fileID: 8300000, guid: 4bff74a130ee5c94689dcf00586a25eb, type: 3}
   topPoint: {fileID: 4870560050303334350}
   bottomPoint: {fileID: 5653957087881416068}
   upColor: {r: 1, g: 1, b: 1, a: 1}

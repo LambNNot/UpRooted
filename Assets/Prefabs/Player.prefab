@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4140338253339775281}
   - component: {fileID: 6942312569479190058}
   - component: {fileID: 5413061076128257435}
+  - component: {fileID: -5932469960983864734}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -221,6 +222,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  dashSound: {fileID: 8300000, guid: 9a19a25e7a41a3f4689d1fd577df25b0, type: 3}
 --- !u!114 &6942312569479190058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +236,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   health: 3
-  healthBar: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 549c17b60766b4046822d2bfa6d87963, type: 3}
+  healthBar: {fileID: 4372887750086207184, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
+  attackPoint: {fileID: 0}
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   recoilColor: {r: 0, g: 0, b: 0, a: 0}
   isAttacking: 0
@@ -252,3 +256,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerCollider: {fileID: 7790375282531361986}
+--- !u!81 &-5932469960983864734
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8128517542479957311}
+  m_Enabled: 1
