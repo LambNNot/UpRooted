@@ -22,6 +22,8 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected AudioClip hitSound;
 
+    private bool isDead = false;
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,38 +34,30 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual bool TakeDamage(double damage, Transform attacker)
     {
+        if (isDead)
+            return false;
+
         health -= Math.Floor(damage);
 
         if (health <= 0)
         {
+            isDead = true;
             Die();
             return true;
         }
 
         if (hitSound)
         {
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);    
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
         }
-        
 
-        float recoilForce = knockbackForce;
         if (damage > 0)
         {
-            recoilForce *= 5;
+            float recoilForce = knockbackForce * 5;
+            ApplyKnockback(attacker, recoilForce);
         }
 
-        float horizontalDir =
-            Mathf.Sign(transform.position.x - attacker.position.x);
-
-        rb.linearVelocity = Vector2.zero;
-
-        rb.AddForce(
-            new Vector2(horizontalDir * recoilForce, recoilForce),
-            ForceMode2D.Impulse
-        );
-
         return false;
-
     }
 
     private void Die()
@@ -91,7 +85,12 @@ public abstract class EnemyBase : MonoBehaviour
     {
         moveDirection = -moveDirection;
         SwitchDirection();
+        OnTurnAround();
     }
+
+protected virtual void OnTurnAround()
+{
+}
 
     protected void Walk()
     {
@@ -107,6 +106,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         sr.flipX = !sr.flipX;
     }
+
     protected virtual void ApplyKnockback(Transform attacker, float recoilForce)
     {
         float horizontalDir =
