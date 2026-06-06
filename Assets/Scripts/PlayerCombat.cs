@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -98,7 +99,7 @@ public class PlayerCombat : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+            Die(); 
             
         }
     }
@@ -137,7 +138,17 @@ public class PlayerCombat : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died");
+        StartCoroutine(RespawnRoutine()); // this will spawn the player at the start of the level 
     }
+
+    private IEnumerator RespawnRoutine(){ // will spawn the player in level if dead 
+        yield return new WaitForSeconds(.1f);
+
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
+
+
     private void Attack(Vector2 inputDirection)
     {
         if (!canAttack)
