@@ -145,7 +145,12 @@ public class PlayerCombat : MonoBehaviour
         yield return new WaitForSeconds(.1f);
 
         string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        if(currentSceneName == "Level2Room"){
+            SceneManager.LoadScene("LevelSecond");
+        }else{
+            SceneManager.LoadScene(currentSceneName);
+
+        }
     }
 
 
