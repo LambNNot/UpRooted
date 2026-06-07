@@ -55,10 +55,25 @@ public class PlayerCombat : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>(); // this will be for the bounce mechanic when the player jumps on an enemy
         originalColor = sr.color;
 
+        StartCoroutine(HealthBarReset()); //will reset the player health after dying or 
+    }
+
+    private IEnumerator HealthBarReset(){ // this will be for the health bar reset when the player dies
+        yield return new WaitForEndOfFrame();
+
+
+        if(healthBar == null){
+            healthBar = FindAnyObjectByType<HealthBar>();
+        }
+
         if(healthBar != null) //will set the bar to max
         {
             healthBar.SetMaxHealth(health);
+            Debug.Log("Full Health");
+        }else{
+            Debug.Log("Not full health");
         }
+
     }
 
     private void Update()
@@ -144,7 +159,14 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator RespawnRoutine(){ // will spawn the player in level if dead 
         yield return new WaitForSeconds(.1f);
 
+        if (Level2ProgressBar.Instance != null) // this will make sure that the progress bar resets, since the DontDestroyOnLoad was preventing it from reseting
+        {
+            Level2ProgressBar.Instance.IncrementBar(-Level2ProgressBar.Instance.TotalEnemies);
+            Destroy(Level2ProgressBar.Instance.gameObject);
+        }
+
         string currentSceneName = SceneManager.GetActiveScene().name;
+
         if(currentSceneName == "Level2Room"){
             SceneManager.LoadScene("LevelSecond");
         }else{
