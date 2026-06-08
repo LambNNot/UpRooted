@@ -3,19 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class ProgressBar : MonoBehaviour
+public class Level2ProgressBar : MonoBehaviour
 {
+    public static Level2ProgressBar Instance{get ; private set;} // will help so we dont have to keep dragging it into the inspector
     public Slider slider;
-    public int TotalEnemies = 10;
+    public int TotalEnemies = 15;
     private int enemiesDefeated = 0; 
 
+    void Awake(){
+        if(Instance == null){ //looks if there are other progress bars 
+            Instance = this;
+
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("good");
+        }else{
+            Destroy(gameObject);
+            Debug.Log("No good");
+        }
+    }
     void Start()
     {
         if(slider != null)
         {
             slider.minValue = 0;
             slider.maxValue = TotalEnemies;
-            slider.value = 0;
+            slider.value = enemiesDefeated;
         }
     }
 

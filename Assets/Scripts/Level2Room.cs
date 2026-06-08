@@ -35,8 +35,8 @@ public class Level2Room : MonoBehaviour
         _roomActivated = true;
 
         if (_doorCollider != null) // will check how many enemies are within the room and then will lock the player in 
-            _remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         {
+            _remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
             _doorCollider.isTrigger = false; 
             Debug.Log("Room is locked, defeat enemies to get out");
         }
@@ -52,7 +52,11 @@ public class Level2Room : MonoBehaviour
         if (!_roomActivated || _isUnlocked) return; 
 
         _remainingEnemies--; //will decrement to keep track of how many enemies are left
-        Debug.Log("Enemies have been defeated!");
+        Debug.Log("Enemy have been defeated!");
+
+        if(Level2ProgressBar.Instance != null){
+            Level2ProgressBar.Instance.IncrementBar(1);
+        }
 
         if (_remainingEnemies <= 0)
         {

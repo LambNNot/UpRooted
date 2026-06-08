@@ -72,10 +72,15 @@ public abstract class EnemyBase : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position);   
         }
-        ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died
+        ProgressBar progressBar = FindAnyObjectByType<ProgressBar>(); //these lines will increment the bar whenever an enemy has died for levels that are one scene
         if(progressBar != null)
         {
             progressBar.IncrementBar(1);
+        }
+
+        Level2ProgressBar progressbar = FindAnyObjectByType<Level2ProgressBar>(); // these lines will be for levels that have multiple rooms
+        if(progressbar != null){
+            progressbar.IncrementBar(1);
         }
 
         Level2Room roomLock = FindAnyObjectByType<Level2Room>();
