@@ -38,7 +38,14 @@ public class DeathBarrier : MonoBehaviour
         {
             hasTriggered = true;
             Debug.Log("Player hit death barrier. Returning to level select: " + levelSelectSceneName);
-            StartCoroutine(KillPlayer());
+
+            PlayerCombat playerCombat = other.GetComponent<PlayerCombat>(); // this will talk to the PlayerCombat and then will reset the progress bar
+
+            if(playerCombat != null){
+                playerCombat.Die();
+            }else{ //if not will just call the coroutine
+                 StartCoroutine(KillPlayer());
+            }
         }
     }
 
@@ -47,7 +54,7 @@ public class DeathBarrier : MonoBehaviour
         // Small delay so we can later hook in screen-fade, sound effects, etc.
         // (matches the "screen fades to black" behavior described in the design doc)
         yield return new WaitForSeconds(deathDelay);
-
+        
         if (string.IsNullOrEmpty(levelSelectSceneName))
         {
             Debug.LogError("DeathBarrier: levelSelectSceneName is not set in the Inspector!");

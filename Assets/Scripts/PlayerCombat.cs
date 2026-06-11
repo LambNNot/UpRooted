@@ -150,7 +150,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         Debug.Log("Player died");
         StartCoroutine(RespawnRoutine()); // this will spawn the player at the start of the level 

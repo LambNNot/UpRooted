@@ -222,6 +222,10 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: LevelFourth
       objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: passprogressbar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 122556648751303857, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5708
@@ -294,11 +298,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: sceneToLoad
       value: LevelSecond
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: passprogressbar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 122556648751303857, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: m_LocalScale.x
@@ -489,8 +497,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 663333910}
     m_Modifications:
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: unlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: sceneToLoad
       value: LevelSecond
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: passprogressbar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 122556648751303857, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: m_LocalScale.x
@@ -1311,8 +1327,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 663333910}
     m_Modifications:
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: unlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: sceneToLoad
       value: LevelFifth
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: passprogressbar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 122556648751303857, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: m_LocalScale.x
@@ -3424,11 +3448,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: sceneToLoad
       value: LevelFirst
+      objectReference: {fileID: 0}
+    - target: {fileID: -7636294266106793178, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
+      propertyPath: passprogressbar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 122556648751303857, guid: f45ee0898c33adb45bfd6f22f6f3e1e9, type: 3}
       propertyPath: m_LocalScale.x
