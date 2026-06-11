@@ -21,6 +21,8 @@ public abstract class EnemyBase : MonoBehaviour
     protected AudioClip deathSound;
     [SerializeField]
     protected AudioClip hitSound;
+    [SerializeField]
+    protected ParticleSystem damageParticles;
 
     private bool isDead = false;
 
@@ -49,6 +51,10 @@ public abstract class EnemyBase : MonoBehaviour
         if (hitSound)
         {
             AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        }
+        if (damageParticles != null)
+        {
+            damageParticles.Play();
         }
 
         if (damage > 0)
