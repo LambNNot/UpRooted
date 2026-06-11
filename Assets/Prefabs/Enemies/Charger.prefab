@@ -62,6 +62,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5003555744037697563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7262064457055687023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5434191763228213330}
+  m_Layer: 0
+  m_Name: ChargerLedgeCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5434191763228213330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262064457055687023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.156, y: 0.016, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5003555744037697563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8245487248373906402
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +128,7 @@ Transform:
   m_Children:
   - {fileID: 775811586624049187}
   - {fileID: 1140004524917581333}
+  - {fileID: 5434191763228213330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7898661364999438611
@@ -175,10 +207,16 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 7dff9a3bffbaee74db26a90ce12763fa, type: 3}
   hitSound: {fileID: 8300000, guid: 4bff74a130ee5c94689dcf00586a25eb, type: 3}
   chargeDelay: 0.5
-  chargeDuration: 1.5
+  chargeDuration: 1
   chargeSpeed: 20
   sightDistance: 5
-  targetLayers:
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  groundLayer:
     serializedVersion: 2
     m_Bits: 64
   walkColor: {r: 1, g: 1, b: 1, a: 1}
@@ -187,6 +225,8 @@ MonoBehaviour:
   raycastOrigin: {fileID: 775811586624049187}
   wallDetectionPoint: {fileID: 1140004524917581333}
   wallDetectionRadius: 0.1
+  ledgeCheck: {fileID: 5434191763228213330}
+  ledgeCheckDistance: 0.75
 --- !u!50 &8318934466209079798
 Rigidbody2D:
   serializedVersion: 5
@@ -248,6 +288,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.00039215482, y: 0.079622015}
-  m_Size: {x: 0.27331376, y: 0.12342385}
+  m_Offset: {x: 0.008760596, y: 0.08980172}
+  m_Size: {x: 0.31118354, y: 0.14378458}
   m_Direction: 1

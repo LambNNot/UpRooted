@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3085332408708457309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8139533511337425684}
+  m_Layer: 0
+  m_Name: HopperGroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8139533511337425684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3085332408708457309}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.086, y: 0.011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 687223937244090059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6646630696937199670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728307580238973030}
+  m_Layer: 0
+  m_Name: HopperLedgeCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1728307580238973030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646630696937199670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.746, y: 0.011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 687223937244090059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7438294591954293161
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +94,9 @@ Transform:
   m_LocalPosition: {x: -9.41, y: 3.46, z: 0}
   m_LocalScale: {x: 3.3723218, y: 3.5867143, z: 3.3723218}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8139533511337425684}
+  - {fileID: 1728307580238973030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1302778160707573351
@@ -110,10 +174,21 @@ MonoBehaviour:
   walkSpeed: 5
   deathSound: {fileID: 8300000, guid: 7dff9a3bffbaee74db26a90ce12763fa, type: 3}
   hitSound: {fileID: 8300000, guid: 4bff74a130ee5c94689dcf00586a25eb, type: 3}
-  jumpForce: 5
-  jumpCooldown: 1.5
+  jumpForce: 7
+  horizontalJumpForce: 3
+  jumpCooldown: 2
+  groundCheck: {fileID: 8139533511337425684}
+  groundCheckSize: {x: 0.4, y: 0.1}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  ledgeCheck: {fileID: 1728307580238973030}
+  ledgeCheckDistance: 0.75
   waitColor: {r: 0, g: 0.5816608, b: 0.72156864, a: 1}
   jumpColor: {r: 1, g: 1, b: 1, a: 1}
+  player: {fileID: 0}
+  playerDetectionRange: 5
+  chasePlayer: 1
 --- !u!50 &4659998559726382556
 Rigidbody2D:
   serializedVersion: 5
