@@ -710,6 +710,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405500388}
     m_Modifications:
+    - target: {fileID: 2714168474368617196, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6701559196222305609, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
       propertyPath: m_Name
       value: Walker (3)
@@ -997,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8281577399298871958, guid: fd6b0959cedf2404bb62185dc8f3caec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.96019
+      value: -17.79
       objectReference: {fileID: 0}
     - target: {fileID: 8281577399298871958, guid: fd6b0959cedf2404bb62185dc8f3caec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1133,6 +1137,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405500388}
     m_Modifications:
+    - target: {fileID: 2714168474368617196, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6701559196222305609, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
       propertyPath: m_Name
       value: Walker (1)
@@ -3808,6 +3816,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405500388}
     m_Modifications:
+    - target: {fileID: 2714168474368617196, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6701559196222305609, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
       propertyPath: m_Name
       value: Walker
@@ -3914,6 +3926,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hopper
       objectReference: {fileID: 0}
+    - target: {fileID: 8630206515810159932, guid: 4881ddb565ba2c24d8fdeb715405da62, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3932,6 +3948,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405500388}
     m_Modifications:
+    - target: {fileID: 2714168474368617196, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6701559196222305609, guid: b5da514222ed81b4f9198b875345bea3, type: 3}
       propertyPath: m_Name
       value: Walker
@@ -6235,6 +6255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hopper
       objectReference: {fileID: 0}
+    - target: {fileID: 8630206515810159932, guid: 4881ddb565ba2c24d8fdeb715405da62, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6384,6 +6408,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8245487248373906402, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
       propertyPath: m_Name
       value: Charger (1)
@@ -6445,6 +6473,10 @@ PrefabInstance:
     - target: {fileID: 5003555744037697563, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434388691021122302, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
+      propertyPath: ledgeCheckDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8245487248373906402, guid: 6bb5b96230b5d8a4e9c05dd31a0f7cd5, type: 3}
       propertyPath: m_Name
