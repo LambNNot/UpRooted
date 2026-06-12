@@ -83,6 +83,10 @@ public abstract class PlayerMovementBase : MonoBehaviour
         wasGrounded = grounded;
     }
 
+    protected virtual void OnJump()
+    {
+    }
+
     protected virtual void HandleJump()
     {
         if (!Input.GetButtonDown("Jump"))
@@ -91,14 +95,23 @@ public abstract class PlayerMovementBase : MonoBehaviour
             return;
         }
 
+        bool jumped = false;
+
         if (IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            jumped = true;
         }
         else if (airJumpsRemaining > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
             airJumpsRemaining--;
+            jumped = true;
+        }
+
+        if (jumped)
+        {
+            OnJump();
         }
 
         HandleJumpCut();

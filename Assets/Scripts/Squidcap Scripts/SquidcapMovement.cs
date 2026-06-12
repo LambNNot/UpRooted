@@ -26,4 +26,9 @@ public class SquidcapMovement : PlayerMovementBase
 
         animator.SetBool("isMoving", isMoving);
     }
+
+    protected override void OnJump()
+    {
+        animator.SetTrigger("jump");
+    }
 }

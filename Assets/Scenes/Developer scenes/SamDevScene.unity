@@ -148,6 +148,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   dashSound: {fileID: 0}
+  animator: {fileID: 1728100308}
 --- !u!114 &40091788
 MonoBehaviour:
   m_ObjectHideFlags: 0
