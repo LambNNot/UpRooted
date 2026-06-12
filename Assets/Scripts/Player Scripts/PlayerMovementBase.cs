@@ -36,13 +36,13 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     [SerializeField] protected AudioClip dashSound;
 
-    protected PlayerCombat combat;
+    protected PlayerCombatBase combat;
 
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         originalGravityScale = rb.gravityScale;
-        combat = GetComponent<PlayerCombat>();
+        combat = GetComponent<PlayerCombatBase>();
         sr = GetComponent<SpriteRenderer>();
         wasGrounded = IsGrounded();
 

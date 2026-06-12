@@ -43,10 +43,10 @@ GameObject:
   - component: {fileID: 7790375282531361986}
   - component: {fileID: 7264172841881584353}
   - component: {fileID: 7510661844962883350}
-  - component: {fileID: 6942312569479190058}
   - component: {fileID: 5413061076128257435}
   - component: {fileID: -5932469960983864734}
   - component: {fileID: 184122232898847922}
+  - component: {fileID: 4758873891281981617}
   m_Layer: 10
   m_Name: PlayerBase
   m_TagString: Player
@@ -202,26 +202,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6942312569479190058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8128517542479957311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ded128cc243e414796a1538854a4f6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
-  health: 3
-  hitSound: {fileID: 8300000, guid: 549c17b60766b4046822d2bfa6d87963, type: 3}
-  healthBar: {fileID: 4372887750086207184, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
-  attackPoint: {fileID: 0}
-  attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  recoilColor: {r: 0, g: 0, b: 0, a: 0}
-  isAttacking: 0
-  isInvulnerable: 0
 --- !u!114 &5413061076128257435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,3 +242,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   dashSound: {fileID: 0}
+--- !u!114 &4758873891281981617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8128517542479957311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a554bec5ea6f54f8f95ba2b6803c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  health: 3
+  hitSound: {fileID: 0}
+  healthBar: {fileID: 0}
+  attackPoint: {fileID: 0}
+  attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  recoilColor: {r: 0, g: 0, b: 0, a: 0}
+  isAttacking: 0
+  isInvulnerable: 0

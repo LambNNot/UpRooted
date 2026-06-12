@@ -3,103 +3,117 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class PlayerCombat : MonoBehaviour
+public abstract class PlayerCombatBase : MonoBehaviour
 {
-    
-    [SerializeField]
-    private int health = 3;
-    [SerializeField]
-    private AudioClip hitSound;
-    public HealthBar healthBar; // will be for the slider
+    [SerializeField] protected int health = 3;
+    [SerializeField] protected AudioClip hitSound;
 
-    [SerializeField]
-    private Transform attackPoint;
+    public HealthBar healthBar;
 
-    private float attackRange = 0.7f;
-    private float attackOffset = 1.225f;
+    [SerializeField] protected Transform attackPoint;
 
-    
-    [SerializeField] private InputActionReference attackAction;
+    protected float attackRange = 0.7f;
+    protected float attackOffset = 1.225f;
 
-    private Vector2 lastAttackDirection = Vector2.zero;
-    
-    private float recoilForce = 8f;
-    private float recoilDuration = 0.2f;
-    
-    [SerializeField]
-    private Color recoilColor;
-    private Color originalColor;
+    [SerializeField] protected InputActionReference attackAction;
 
-    
-    public bool isRecoiling { get; private set; } = false;
+    protected Vector2 lastAttackDirection = Vector2.zero;
 
-    private float attackCooldown = 0.25f;
-    private float hitboxVisibleTime = 0.1f;
-    private Color hitboxColor = Color.blue;
+    protected float recoilForce = 8f;
+    protected float recoilDuration = 0.2f;
+
+    [SerializeField] protected Color recoilColor;
+    protected Color originalColor;
+
+    public bool isRecoiling { get; protected set; } = false;
+
+    protected float attackCooldown = 0.25f;
+    protected float hitboxVisibleTime = 0.1f;
+    protected Color hitboxColor = Color.blue;
 
     public bool isAttacking;
     public bool isInvulnerable;
 
-    private bool canAttack = true;
+    protected bool canAttack = true;
 
-    private GameObject currentHitboxVisual;
+    protected GameObject currentHitboxVisual;
 
-    private SpriteRenderer sr;
-    private Rigidbody2D rb;
-    private PlayerMovementBase playerMovement; // reference to the player's movement script for the bounce mechanic
+    protected SpriteRenderer sr;
+    protected Rigidbody2D rb;
+    protected PlayerMovementBase playerMovement;
 
-    private void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        playerMovement = GetComponent<PlayerMovementBase>(); // this will be for the bounce mechanic when the player jumps on an enemy
+        playerMovement = GetComponent<PlayerMovementBase>();
         originalColor = sr.color;
 
-        StartCoroutine(HealthBarReset()); //will reset the player health after dying or 
+        StartCoroutine(HealthBarReset());
     }
 
-    private IEnumerator HealthBarReset(){ // this will be for the health bar reset when the player dies
-        yield return new WaitForEndOfFrame();
-
-
-        if(healthBar == null){
-            healthBar = FindAnyObjectByType<HealthBar>();
-        }
-
-        if(healthBar != null) //will set the bar to max
-        {
-            healthBar.SetMaxHealth(health);
-            Debug.Log("Full Health");
-        }else{
-            Debug.Log("Not full health");
-        }
-
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         lastAttackDirection = GetAttackDirection();
     }
 
-    // player takes damage when colliding with an enemy 
-    private void TakeDamage(Transform attacker)
+    protected virtual IEnumerator HealthBarReset()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (healthBar == null)
+        {
+            healthBar = FindAnyObjectByType<HealthBar>();
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(health);
+            Debug.Log("Full Health");
+        }
+        else
+        {
+            Debug.Log("Not full health");
+        }
+    }
+
+    protected virtual void TakeDamage(Transform attacker)
     {
         if (isInvulnerable)
-        {
             return;
-        }
 
         health -= 1;
+
+        PlayHitSound();
+        UpdateHealthBar();
+        ApplyRecoil(attacker);
+
+        StartCoroutine(RecoilCoroutine());
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void PlayHitSound()
+    {
         if (hitSound)
         {
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);   
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
         }
+    }
 
-        if (healthBar != null) // will update the slider
+    protected virtual void UpdateHealthBar()
+    {
+        if (healthBar != null)
         {
             healthBar.SetHealth(health);
         }
+    }
 
+    protected virtual void ApplyRecoil(Transform attacker)
+    {
         float horizontalDir =
             Mathf.Sign(transform.position.x - attacker.position.x);
 
@@ -109,17 +123,9 @@ public class PlayerCombat : MonoBehaviour
             new Vector2(horizontalDir * recoilForce, recoilForce),
             ForceMode2D.Impulse
         );
-
-        StartCoroutine(RecoilCoroutine());
-
-        if (health <= 0)
-        {
-            Die(); 
-            
-        }
     }
 
-    private IEnumerator RecoilCoroutine()
+    protected virtual IEnumerator RecoilCoroutine()
     {
         isRecoiling = true;
 
@@ -141,7 +147,7 @@ public class PlayerCombat : MonoBehaviour
         isRecoiling = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isRecoiling)
         {
@@ -150,48 +156,45 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Debug.Log("Player died");
-        StartCoroutine(RespawnRoutine()); // this will spawn the player at the start of the level 
+        StartCoroutine(RespawnRoutine());
     }
 
-    private IEnumerator RespawnRoutine(){ // will spawn the player in level if dead 
-        yield return new WaitForSeconds(.1f);
+    protected virtual IEnumerator RespawnRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
 
-        if (Level2ProgressBar.Instance != null) // this will make sure that the progress bar resets, since the DontDestroyOnLoad was preventing it from reseting
+        if (Level2ProgressBar.Instance != null)
         {
-            Level2ProgressBar.Instance.IncrementBar(-Level2ProgressBar.Instance.TotalEnemies);
+            Level2ProgressBar.Instance.IncrementBar(
+                -Level2ProgressBar.Instance.TotalEnemies
+            );
+
             Destroy(Level2ProgressBar.Instance.gameObject);
         }
 
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        if(currentSceneName == "Level2Room"){
+        if (currentSceneName == "Level2Room")
+        {
             SceneManager.LoadScene("LevelSecond");
-        }else{
+        }
+        else
+        {
             SceneManager.LoadScene(currentSceneName);
-
         }
     }
 
-
-    private void Attack(Vector2 inputDirection)
+    protected virtual void Attack(Vector2 inputDirection)
     {
         if (!canAttack)
             return;
 
+        BeginAttack();
 
-        isAttacking = true;
-        isInvulnerable = true;
-        StartCoroutine(AttackCooldown());
-
-        Vector2 attackCenter = transform.position;
-
-        if (inputDirection != Vector2.zero)
-        {
-            attackCenter += inputDirection.normalized * attackOffset;
-        }
+        Vector2 attackCenter = GetAttackCenter(inputDirection);
 
         StartCoroutine(ShowHitboxVisual(attackCenter));
 
@@ -202,31 +205,68 @@ public class PlayerCombat : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            if (!collider.CompareTag("Enemy"))
-                continue;
-
-            EnemyBase enemyBase = collider.GetComponent<EnemyBase>();
-
-            if (enemyBase != null)
-            {
-                bool hitFromAbove = inputDirection.y < 0f && transform.position.y > collider.transform.position.y; // Check if the attack is coming from above
-                bool enemyDied = enemyBase.TakeDamage(1, transform);
-                if (hitFromAbove && playerMovement != null)
-                {
-                    playerMovement.BounceFromEnemy(); // Call the bounce method on the player's movement script
-                    if (enemyDied)
-                    {
-                        playerMovement.ResetDashCoolDown(); // Resetting cooldown if the enemy dies from the bounce attack
-                    }
-                }
-            }
+            HandleAttackCollider(collider, inputDirection);
         }
 
+        EndAttack();
+    }
+
+    protected virtual void BeginAttack()
+    {
+        isAttacking = true;
+        isInvulnerable = true;
+        StartCoroutine(AttackCooldown());
+    }
+
+    protected virtual void EndAttack()
+    {
         isInvulnerable = false;
         isAttacking = false;
     }
 
-    private IEnumerator AttackCooldown()
+    protected virtual Vector2 GetAttackCenter(Vector2 inputDirection)
+    {
+        Vector2 attackCenter = transform.position;
+
+        if (inputDirection != Vector2.zero)
+        {
+            attackCenter += inputDirection.normalized * attackOffset;
+        }
+
+        return attackCenter;
+    }
+
+    protected virtual void HandleAttackCollider(
+        Collider2D collider,
+        Vector2 inputDirection
+    )
+    {
+        if (!collider.CompareTag("Enemy"))
+            return;
+
+        EnemyBase enemyBase = collider.GetComponent<EnemyBase>();
+
+        if (enemyBase == null)
+            return;
+
+        bool hitFromAbove =
+            inputDirection.y < 0f &&
+            transform.position.y > collider.transform.position.y;
+
+        bool enemyDied = enemyBase.TakeDamage(1, transform);
+
+        if (hitFromAbove && playerMovement != null)
+        {
+            playerMovement.BounceFromEnemy();
+
+            if (enemyDied)
+            {
+                playerMovement.ResetDashCoolDown();
+            }
+        }
+    }
+
+    protected virtual IEnumerator AttackCooldown()
     {
         canAttack = false;
 
@@ -235,7 +275,7 @@ public class PlayerCombat : MonoBehaviour
         canAttack = true;
     }
 
-    private IEnumerator ShowHitboxVisual(Vector2 position)
+    protected virtual IEnumerator ShowHitboxVisual(Vector2 position)
     {
         GameObject hitbox = new GameObject("AttackHitbox");
 
@@ -243,23 +283,20 @@ public class PlayerCombat : MonoBehaviour
             hitbox.AddComponent<SpriteRenderer>();
 
         hitboxRenderer.sortingOrder = 10;
-
         hitboxRenderer.sprite = CreateCircleSprite();
         hitboxRenderer.color = hitboxColor;
 
         hitbox.transform.position = position;
-        hitbox.transform.localScale =
-            Vector3.one * attackRange * 2f;
+        hitbox.transform.localScale = Vector3.one * attackRange * 2f;
 
         yield return new WaitForSeconds(hitboxVisibleTime);
 
         Destroy(hitbox);
     }
 
-    private Sprite CreateCircleSprite()
+    protected virtual Sprite CreateCircleSprite()
     {
         Texture2D texture = new Texture2D(128, 128);
-
         Color[] colors = new Color[128 * 128];
 
         Vector2 center = new Vector2(64, 64);
@@ -289,7 +326,7 @@ public class PlayerCombat : MonoBehaviour
         );
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Vector2 attackCenter = transform.position;
 
@@ -300,24 +337,25 @@ public class PlayerCombat : MonoBehaviour
 
         Gizmos.DrawWireSphere(attackCenter, attackRange);
     }
-    private void OnEnable()
+
+    protected virtual void OnEnable()
     {
         attackAction.action.performed += OnAttack;
         attackAction.action.Enable();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         attackAction.action.performed -= OnAttack;
         attackAction.action.Disable();
     }
 
-    private void OnAttack(InputAction.CallbackContext context)
+    protected virtual void OnAttack(InputAction.CallbackContext context)
     {
         Attack(GetAttackDirection());
     }
 
-    private Vector2 GetAttackDirection()
+    protected virtual Vector2 GetAttackDirection()
     {
         Vector2 inputDirection = new Vector2(
             Input.GetAxisRaw("Horizontal"),
