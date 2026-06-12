@@ -46,13 +46,13 @@ public class PlayerCombat : MonoBehaviour
 
     private SpriteRenderer sr;
     private Rigidbody2D rb;
-    private PlayerMovement playerMovement; // reference to the player's movement script for the bounce mechanic
+    private PlayerMovementBase playerMovement; // reference to the player's movement script for the bounce mechanic
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        playerMovement = GetComponent<PlayerMovement>(); // this will be for the bounce mechanic when the player jumps on an enemy
+        playerMovement = GetComponent<PlayerMovementBase>(); // this will be for the bounce mechanic when the player jumps on an enemy
         originalColor = sr.color;
 
         StartCoroutine(HealthBarReset()); //will reset the player health after dying or 
