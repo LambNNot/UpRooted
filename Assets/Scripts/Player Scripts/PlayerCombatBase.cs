@@ -10,7 +10,6 @@ public abstract class PlayerCombatBase : MonoBehaviour
 
     public HealthBar healthBar;
 
-    [SerializeField] protected Transform attackPoint;
     [SerializeField] protected GameObject attackHitbox;
     [SerializeField] protected Collider2D attackHitboxCollider;
 
@@ -24,7 +23,7 @@ public abstract class PlayerCombatBase : MonoBehaviour
     protected float recoilForce = 8f;
     protected float recoilDuration = 0.2f;
 
-    [SerializeField] protected Color recoilColor;
+    protected Color recoilColor = Color.clear;
     protected Color originalColor;
 
     public bool isRecoiling { get; protected set; } = false;
@@ -47,7 +46,7 @@ public abstract class PlayerCombatBase : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovementBase>();
         originalColor = sr.color;
 
@@ -199,7 +198,7 @@ public abstract class PlayerCombatBase : MonoBehaviour
         if (!canAttack)
             return;
 
-        BeginAttack();
+        BeginAttack(inputDirection);
 
         PositionAttackHitbox(inputDirection);
         StartCoroutine(EnableAttackHitbox(inputDirection));
@@ -241,17 +240,27 @@ public abstract class PlayerCombatBase : MonoBehaviour
         if (direction == Vector2.zero)
             direction = GetAttackDirection();
 
-        Vector2 worldOffset = direction.normalized * attackOffset;
+        Vector2 offset = direction.normalized * attackOffset;
 
-        attackHitbox.transform.position =
-            (Vector2)transform.position + worldOffset;
+        if (transform.localScale.x < 0f)
+        {
+            offset.x *= -1f;
+        }
+
+        attackHitbox.transform.localPosition = offset;
     }
 
-    protected virtual void BeginAttack()
+    protected virtual void OnAttackStarted(Vector2 attackDirection)
+    {
+    }
+
+    protected virtual void BeginAttack(Vector2 inputDirection)
     {
         isAttacking = true;
         isInvulnerable = true;
         StartCoroutine(AttackCooldown());
+
+        OnAttackStarted(inputDirection);
     }
 
     protected virtual void EndAttack()
