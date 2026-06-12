@@ -242,6 +242,8 @@ public class PlayerCombat : MonoBehaviour
         SpriteRenderer hitboxRenderer =
             hitbox.AddComponent<SpriteRenderer>();
 
+        hitboxRenderer.sortingOrder = 10;
+
         hitboxRenderer.sprite = CreateCircleSprite();
         hitboxRenderer.color = hitboxColor;
 
