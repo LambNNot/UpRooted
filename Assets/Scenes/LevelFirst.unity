@@ -1364,6 +1364,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3721748587108307398, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
+      propertyPath: m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721748587108307398, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
+      propertyPath: m_MaxValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7753152883755810315, guid: a1a08eef46b4623488902b4a24a020e8, type: 3}
       propertyPath: m_Name
       value: HealthBar
@@ -1696,6 +1704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2580160289743757861, guid: f7358c1310878d24e908b7f9293f5999, type: 3}
+      propertyPath: health
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8128517542479957311, guid: f7358c1310878d24e908b7f9293f5999, type: 3}
       propertyPath: m_Name
       value: Squidcap

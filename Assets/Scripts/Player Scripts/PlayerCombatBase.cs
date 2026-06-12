@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class PlayerCombatBase : MonoBehaviour
 {
-    [SerializeField] protected int health = 3;
+    [SerializeField] protected int health = 5;
     [SerializeField] protected AudioClip hitSound;
 
     public HealthBar healthBar;
