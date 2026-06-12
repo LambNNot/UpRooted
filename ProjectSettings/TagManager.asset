@@ -19,10 +19,10 @@ TagManager:
   - Ground
   - Walls
   - OneWayPlatform
-  - 
-  - 
-  - 
-  - 
+  - Enemies
+  - Player
+  - FX
+  - Environment
   - 
   - 
   - 
@@ -45,6 +45,27 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3951497385
+    locked: 0
+  - name: Environment
+    uniqueID: 896551557
+    locked: 0
+  - name: Ground
+    uniqueID: 1301733291
+    locked: 0
+  - name: Enemies
+    uniqueID: 2574704363
+    locked: 0
+  - name: Player
+    uniqueID: 518302827
+    locked: 0
+  - name: FX
+    uniqueID: 1309073667
+    locked: 0
+  - name: UI
+    uniqueID: 3221767675
     locked: 0
   m_RenderingLayers:
   - Default
