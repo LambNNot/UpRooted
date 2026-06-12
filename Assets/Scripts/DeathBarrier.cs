@@ -39,7 +39,7 @@ public class DeathBarrier : MonoBehaviour
             hasTriggered = true;
             Debug.Log("Player hit death barrier. Returning to level select: " + levelSelectSceneName);
 
-            PlayerCombat playerCombat = other.GetComponent<PlayerCombat>(); // this will talk to the PlayerCombat and then will reset the progress bar
+            PlayerCombatBase playerCombat = other.GetComponent<PlayerCombatBase>(); // this will talk to the PlayerCombat and then will reset the progress bar
 
             if(playerCombat != null){
                 playerCombat.Die();

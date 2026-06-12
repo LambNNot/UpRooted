@@ -78,4 +78,10 @@ public class WalkerScript : EnemyBase
             ledgeCheck.position + Vector3.down * ledgeCheckDistance
         );
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TurnAround();
+    }
 }
+

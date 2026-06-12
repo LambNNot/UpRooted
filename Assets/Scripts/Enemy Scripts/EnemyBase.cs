@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField]
     protected float walkSpeed = 5f;
 
-    private float knockbackForce = 1f;
+    [SerializeField] protected float knockbackForce = 1f;
+    [SerializeField] protected float knockbackDuration = 0.2f;
+
+    protected bool isDead = false;
+    protected bool isRecoiling = false;
 
     protected Vector3 moveDirection = Vector3.left;
 
@@ -23,8 +28,6 @@ public abstract class EnemyBase : MonoBehaviour
     protected AudioClip hitSound;
     [SerializeField]
     protected ParticleSystem damageParticles;
-
-    private bool isDead = false;
 
     protected virtual void Start()
     {
@@ -60,10 +63,22 @@ public abstract class EnemyBase : MonoBehaviour
         if (damage > 0)
         {
             float recoilForce = knockbackForce * 5;
-            ApplyKnockback(attacker, recoilForce);
+            StartCoroutine(KnockbackCoroutine(attacker, recoilForce));
         }
 
         return false;
+    }
+
+    protected virtual IEnumerator KnockbackCoroutine(Transform attacker, float recoilForce)
+    {
+        isRecoiling = true;
+
+        ApplyKnockback(attacker, recoilForce);
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        rb.linearVelocity = Vector2.zero;
+        isRecoiling = false;
     }
 
     private void Die()
@@ -99,21 +114,24 @@ public abstract class EnemyBase : MonoBehaviour
         OnTurnAround();
     }
 
-protected virtual void OnTurnAround()
-{
-}
-
-    protected void Walk()
+    protected virtual void OnTurnAround()
     {
+    }
+
+    protected virtual void Walk()
+    {
+        if (isRecoiling || isDead)
+            return;
+
         transform.position += moveDirection * walkSpeed * Time.deltaTime;
     }
 
-    protected Vector3 getMoveDirection()
+    protected virtual Vector3 getMoveDirection()
     {
         return moveDirection;
     }
 
-    private void SwitchDirection()
+    protected virtual void SwitchDirection()
     {
         sr.flipX = !sr.flipX;
     }
