@@ -81,7 +81,7 @@ public abstract class EnemyBase : MonoBehaviour
         isRecoiling = false;
     }
 
-    private void Die()
+    public virtual void Die()
     {
         if (deathSound)
         {

@@ -47,6 +47,21 @@ public class DeathBarrier : MonoBehaviour
                  StartCoroutine(KillPlayer());
             }
         }
+        if (other.CompareTag("Enemy"))
+        {
+            // Optional: If you want enemies to also be affected by the death barrier, you can add logic here.
+            // For example, you could destroy the enemy or trigger a different effect.
+            Debug.Log("Enemy hit death barrier and will be destroyed.");
+            EnemyBase enemy = other.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Die(); // Assuming EnemyBase has a Die() method to handle enemy death
+            }
+            else
+            {
+                Destroy(other.gameObject); // Fallback: just destroy the enemy GameObject
+            }
+        }
     }
 
     private IEnumerator KillPlayer()
