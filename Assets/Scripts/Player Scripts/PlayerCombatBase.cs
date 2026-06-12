@@ -11,6 +11,8 @@ public abstract class PlayerCombatBase : MonoBehaviour
     public HealthBar healthBar;
 
     [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected GameObject attackHitbox;
+    [SerializeField] protected Collider2D attackHitboxCollider;
 
     protected float attackRange = 0.7f;
     protected float attackOffset = 1.225f;
@@ -48,6 +50,11 @@ public abstract class PlayerCombatBase : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovementBase>();
         originalColor = sr.color;
+
+        if (attackHitbox != null)
+        {
+            attackHitbox.SetActive(false);
+        }
 
         StartCoroutine(HealthBarReset());
     }
@@ -194,12 +201,22 @@ public abstract class PlayerCombatBase : MonoBehaviour
 
         BeginAttack();
 
-        Vector2 attackCenter = GetAttackCenter(inputDirection);
+        PositionAttackHitbox(inputDirection);
+        StartCoroutine(EnableAttackHitbox(inputDirection));
+    }
 
-        StartCoroutine(ShowHitboxVisual(attackCenter));
+    protected virtual IEnumerator EnableAttackHitbox(Vector2 inputDirection)
+    {
+        if (attackHitbox == null || attackHitboxCollider == null)
+        {
+            EndAttack();
+            yield break;
+        }
+
+        attackHitbox.SetActive(true);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
-            attackCenter,
+            attackHitbox.transform.position,
             attackRange
         );
 
@@ -208,7 +225,26 @@ public abstract class PlayerCombatBase : MonoBehaviour
             HandleAttackCollider(collider, inputDirection);
         }
 
+        yield return new WaitForSeconds(hitboxVisibleTime);
+
+        attackHitbox.SetActive(false);
         EndAttack();
+    }
+
+    protected virtual void PositionAttackHitbox(Vector2 inputDirection)
+    {
+        if (attackHitbox == null)
+            return;
+
+        Vector2 direction = inputDirection;
+
+        if (direction == Vector2.zero)
+            direction = GetAttackDirection();
+
+        Vector2 worldOffset = direction.normalized * attackOffset;
+
+        attackHitbox.transform.position =
+            (Vector2)transform.position + worldOffset;
     }
 
     protected virtual void BeginAttack()
@@ -328,14 +364,10 @@ public abstract class PlayerCombatBase : MonoBehaviour
 
     protected virtual void OnDrawGizmosSelected()
     {
-        Vector2 attackCenter = transform.position;
-
-        if (lastAttackDirection != Vector2.zero)
+        if (attackHitbox != null)
         {
-            attackCenter += lastAttackDirection * attackOffset;
+            Gizmos.DrawWireSphere(attackHitbox.transform.position, attackRange);
         }
-
-        Gizmos.DrawWireSphere(attackCenter, attackRange);
     }
 
     protected virtual void OnEnable()
