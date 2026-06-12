@@ -198,7 +198,7 @@ public abstract class PlayerCombatBase : MonoBehaviour
         if (!canAttack)
             return;
 
-        BeginAttack();
+        BeginAttack(inputDirection);
 
         PositionAttackHitbox(inputDirection);
         StartCoroutine(EnableAttackHitbox(inputDirection));
@@ -250,11 +250,17 @@ public abstract class PlayerCombatBase : MonoBehaviour
         attackHitbox.transform.localPosition = offset;
     }
 
-    protected virtual void BeginAttack()
+    protected virtual void OnAttackStarted(Vector2 attackDirection)
+    {
+    }
+
+    protected virtual void BeginAttack(Vector2 inputDirection)
     {
         isAttacking = true;
         isInvulnerable = true;
         StartCoroutine(AttackCooldown());
+
+        OnAttackStarted(inputDirection);
     }
 
     protected virtual void EndAttack()
