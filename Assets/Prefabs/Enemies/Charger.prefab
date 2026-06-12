@@ -5108,7 +5108,7 @@ MonoBehaviour:
   sightDistance: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
