@@ -243,7 +243,7 @@ SpriteRenderer:
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 28abcd6aba20847e89c77b241370384f, type: 3}
-  m_Color: {r: 1, g: 0.377878, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45348525, b: 0.013207495, a: 0.5137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SquidcapCombat
   health: 3
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 549c17b60766b4046822d2bfa6d87963, type: 3}
   healthBar: {fileID: 0}
   attackHitbox: {fileID: 2649068679621116315}
   attackHitboxCollider: {fileID: 7428060738457268802}
@@ -456,5 +456,5 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  dashSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 9a19a25e7a41a3f4689d1fd577df25b0, type: 3}
   animator: {fileID: 5975067873382662388}
