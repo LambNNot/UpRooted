@@ -8,8 +8,8 @@ public abstract class PlayerMovementBase : MonoBehaviour
     protected float jumpingPower = 16f;
     protected bool isFacingRight = true;
 
-    protected int maxJumps = 2;
-    protected int jumpsRemaining;
+    protected int maxAirJumps = 1;
+    protected int airJumpsRemaining;
 
     protected bool canDash = true;
     protected bool isDashing;
@@ -46,7 +46,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         wasGrounded = IsGrounded();
 
-        jumpsRemaining = maxJumps;
+        airJumpsRemaining = maxAirJumps;
     }
 
     protected virtual void Update()
@@ -77,7 +77,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
         if (grounded && !wasGrounded)
         {
-            jumpsRemaining = maxJumps;
+            airJumpsRemaining = maxAirJumps;
         }
 
         wasGrounded = grounded;
@@ -85,12 +85,27 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     protected virtual void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && jumpsRemaining > 0)
+        if (!Input.GetButtonDown("Jump"))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-            jumpsRemaining--;
+            HandleJumpCut();
+            return;
         }
 
+        if (IsGrounded())
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+        }
+        else if (airJumpsRemaining > 0)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            airJumpsRemaining--;
+        }
+
+        HandleJumpCut();
+    }
+
+    protected virtual void HandleJumpCut()
+    {
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(
@@ -202,7 +217,8 @@ public abstract class PlayerMovementBase : MonoBehaviour
         isDashing = false;
         rb.gravityScale = originalGravityScale;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, enemyBouncePower);
-        jumpsRemaining = maxJumps - 1;
+
+        airJumpsRemaining = maxAirJumps;
     }
 
     public virtual void ResetDashCoolDown()
