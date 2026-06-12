@@ -169,6 +169,7 @@ MonoBehaviour:
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   isAttacking: 0
   isInvulnerable: 0
+  animator: {fileID: 1728100308}
 --- !u!1001 &272049137
 PrefabInstance:
   m_ObjectHideFlags: 0

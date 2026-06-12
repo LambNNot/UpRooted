@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: caphead_side_attack (2)_Clip
+  m_Name: caphead_side_attack (3)_Clip
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -8265015708396671331, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: -1353091738960287447, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     - time: 0.1
-      value: {fileID: -4407641827274435530, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: 1424454417269711157, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     - time: 0.2
-      value: {fileID: 2656584875086710643, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: 7343185757082287190, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     - time: 0.3
-      value: {fileID: 4047748239153134984, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: 2916649832948801193, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     - time: 0.4
-      value: {fileID: -971769076625686503, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: 5962301355875127425, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     - time: 0.49
-      value: {fileID: -971769076625686503, guid: 2db22765510cbd84b84e2f0f09ead41e, type: 3}
+      value: {fileID: 5962301355875127425, guid: a2da9a08ffb976249a115437eafeb6bd, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
